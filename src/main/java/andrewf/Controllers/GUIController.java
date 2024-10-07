@@ -1,6 +1,6 @@
 package andrewf.Controllers;
 
-import static andrewf.UI.Buttons.*;
+import static andrewf.UI.Output.*;
 
 public class GUIController {
     int selectedButton = 0;

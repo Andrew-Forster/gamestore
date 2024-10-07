@@ -1,6 +1,7 @@
 package andrewf.Core.Items;
 
-import andrewf.Core.SellableProducts;
+import andrewf.Core.Interfaces_Abstract.SellableProducts;
+
 
 public abstract class Armor extends SellableProducts {
     String type;

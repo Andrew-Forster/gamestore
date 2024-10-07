@@ -1,6 +1,5 @@
 package andrewf.Core.Items;
-
-import andrewf.Core.SellableProducts;
+import andrewf.Core.Interfaces_Abstract.SellableProducts;
 
 public abstract class Ability extends SellableProducts {
     String type; // Offensive, Defensive, Healing, Buff
@@ -17,5 +16,6 @@ public abstract class Ability extends SellableProducts {
         this.range = range;
         this.duration = duration;
     }
+    
 
 }

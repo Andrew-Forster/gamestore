@@ -3,7 +3,7 @@ package andrewf.UI;
 import static andrewf.Colors.*;
 import static andrewf.Utils.*;
 
-public class Buttons {
+public class Output {
     public static int buttonCount = 0;
     public static String upperMenuText = "Welcome to the Game Store!";
     public static String lowerMenuText = "";
@@ -91,6 +91,16 @@ public class Buttons {
         System.out.println(repeatChar('-', 74));
 
         System.out.println("\n" + lowerMenuText);
+    }
+
+    public static void printUserAction(int selected) {
+        outputButtons(3, selected, "[#] View Products", "[*] Search Products", "[+] Add to Cart", "[-] Remove from Cart",
+              "[~] View Cart", "[^] Checkout", "[X] Exit");
+    }
+
+    public static void printAdminAction(int selected) {
+        outputButtons(3, selected, "[+] Add Product", "[-] Remove Product", "[*] Search Products", "[#] View Products",
+              "[~] Update Product", "[^] Save Inv File", "[>] Load Inv File", "[X] Exit");
     }
 
 }

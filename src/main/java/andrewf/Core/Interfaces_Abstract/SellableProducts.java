@@ -1,4 +1,4 @@
-package andrewf.Core;
+package andrewf.Core.Interfaces_Abstract;
 
 public abstract class SellableProducts implements Comparable<SellableProducts> {
     int id;
@@ -48,6 +48,30 @@ public abstract class SellableProducts implements Comparable<SellableProducts> {
     @Override
     public int compareTo(SellableProducts o) {
         return this.name.compareTo(o.name);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public String getType() {
+        return this.getClass().getSimpleName();
     }
     
 

@@ -1,6 +1,6 @@
 package andrewf;
 
-import static andrewf.UI.Buttons.printMainMenu;
+import static andrewf.UI.Output.printMainMenu;
 
 import javax.swing.SwingUtilities;
 

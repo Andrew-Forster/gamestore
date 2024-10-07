@@ -1,9 +1,7 @@
 package andrewf.Controllers;
 
 import java.util.Stack;
-import static andrewf.UI.AdminActions.*;
-import static andrewf.UI.UserActions.*;
-import static andrewf.UI.Buttons.*;
+import static andrewf.UI.Output.*;
 
 public class StateController {
     public Stack<String> stateStack = new Stack<String>();

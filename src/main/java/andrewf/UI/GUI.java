@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import andrewf.Controllers.GUIController;
-import static andrewf.UI.Buttons.*;
+import static andrewf.UI.Output.*;
 
 public class GUI extends JFrame implements KeyListener {
     private GUIController controller;
@@ -57,11 +57,6 @@ public class GUI extends JFrame implements KeyListener {
 
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
+    public void keyTyped(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {}
 }
