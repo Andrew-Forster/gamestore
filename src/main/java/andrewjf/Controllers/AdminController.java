@@ -63,7 +63,7 @@ public class AdminController implements Initializable {
     private ComboBox<String> itemType;
 
     /**
-     * Initializes
+     * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -85,17 +85,32 @@ public class AdminController implements Initializable {
         prop3.getParent().setVisible(false);
     }
 
+    /**
+     * Redirect to the main page
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void gotoMain(ActionEvent event) throws IOException {
         setRoot("main", "Game Store");
     }
 
+     /**
+      * Toggles the admin menu
+      * TODO: Add animation
+      * TODO: Adjust the stack pane to take up the available space
+      */
     @FXML
     private void toggleMenu() {
         menu.setVisible(!menu.isVisible());
         menu.setManaged(menu.isVisible());
     }
 
+    /**
+     * Display the products in the store
+     * @param event Use 'null' to call this function from another function
+     * @throws IOException
+     */
     @FXML
     private void displayProducts(ActionEvent event) throws IOException {
         clearStackPane();
@@ -118,6 +133,10 @@ public class AdminController implements Initializable {
 
     }
 
+    /**
+     * Navigate to the add product page
+     * @param event Use 'null' to call this function from another function
+     */
     @FXML
     private void addPage(ActionEvent event) {
         clearStackPane();
@@ -137,6 +156,11 @@ public class AdminController implements Initializable {
     @FXML
     private TextField prop3inputUpdate;
 
+    /**
+     * Update the product based on the type
+     * @param event
+     * @Note For the Update Product Page
+     */
     @FXML
     private void updatePage(ActionEvent event) {
         clearStackPane();
@@ -181,6 +205,11 @@ public class AdminController implements Initializable {
 
     }
 
+    /**
+     * Search for products based on the search bar
+     * and display them
+     * @param event
+     */
     @FXML
     private void searchProducts(KeyEvent event) {
 
@@ -199,7 +228,6 @@ public class AdminController implements Initializable {
 
     }
 
-    // Add product type changing
 
     @FXML
     private Label prop1;
@@ -208,6 +236,11 @@ public class AdminController implements Initializable {
     @FXML
     private Label prop3;
 
+    /**
+     * Change the properties of the product based on the type
+     * @param event
+     * @Note For the Add Product Page
+     */
     @FXML
     private void chooseType(ActionEvent event) {
         String type = itemType.getValue();
@@ -256,8 +289,8 @@ public class AdminController implements Initializable {
 
     @FXML
     /**
-     * Add product to store and display
-     * 
+     * Add product to store and display 
+     * the products again
      * @param event
      */
     private void addProduct(ActionEvent event) {
@@ -369,6 +402,11 @@ public class AdminController implements Initializable {
     @FXML
     private Label addErrUpdate;
 
+    /**
+     * Used to update the product in the store
+     * Not for use inside the controller
+     * @param event 
+     */
     @FXML
     private void updateProduct(ActionEvent event) {
         SellableProducts product = store.getProduct(currentlySelected);
@@ -468,11 +506,31 @@ public class AdminController implements Initializable {
         timeline.play();
     }
 
+    /**
+     * Cancel the update and clear the stack pane
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void cancelUpdate(ActionEvent event) throws IOException {
+        clearStackPane();
+        viewProduct(store.getProduct(currentlySelected));
+    }
+
+    /**
+     * Opens the confirm dialog to delete the product
+     * @param event
+     */
     @FXML
     private void deleteProduct(ActionEvent event) {
         confirmDialog.setVisible(true);
     }
-
+    
+    /**
+     * Affirms the deletion of the product
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void confirmDelete(ActionEvent event) throws IOException {
         SellableProducts product = store.getProduct(currentlySelected);
@@ -488,6 +546,10 @@ public class AdminController implements Initializable {
         displayProducts(null);
     }
 
+    /**
+     * Cancels the deletion of the product
+     * @param event
+     */
     @FXML
     private void cancelDelete(ActionEvent event) {
         confirmDialog.setVisible(false);
@@ -496,6 +558,42 @@ public class AdminController implements Initializable {
     @FXML
     private Label productInfo;
 
+
+    /**
+     * View the product details
+     * Opens the product pane
+     * @param product
+     */
+    private void viewProduct(SellableProducts product) {
+        currentlySelected = product.getId();
+        String info = "Name: " + product.getName() + "\n" +
+                "ID: " + product.getId() + "\n" +
+                "Price: " + product.getPrice() + "\n" +
+                "Description: " + product.getDescription();
+        if (product instanceof Armor) {
+            Armor armor = (Armor) product;
+            info += "\nType: " + armor.getType() + "\nDefense: " + armor.getDefense() + "\nDurability: "
+                    + armor.getDurability();
+        } else if (product instanceof Weapons) {
+            Weapons weapon = (Weapons) product;
+            info += "\nDamage: " + weapon.getDamage() + "\nDurability: " + weapon.getDurability() + "\nWeight: "
+                    + weapon.getWeight();
+        } else if (product instanceof Ability) {
+            Ability ability = (Ability) product;
+            info += "\nType: " + ability.getType() + "\nCooldown: " + ability.getCooldown() + "\nDuration: "
+                    + ability.getDuration();
+        }
+
+        productInfo.setText(info);
+        clearStackPane();
+        productPane.setVisible(true);
+    }
+
+    /**
+     * Create a card for the product
+     * @param product
+     * @return
+     */
     private VBox createProductCard(SellableProducts product) {
         VBox card = new VBox();
         card.setStyle("-fx-border-color: gray; -fx-padding: 10; -fx-alignment: center;");
@@ -509,28 +607,7 @@ public class AdminController implements Initializable {
         // Edit button
         Button editButton = new Button("View");
         editButton.setOnAction(event -> {
-            currentlySelected = product.getId();
-            String info = "Name: " + product.getName() + "\n" +
-                    "ID: " + product.getId() + "\n" +
-                    "Price: " + product.getPrice() + "\n" +
-                    "Description: " + product.getDescription();
-            if (product instanceof Armor) {
-                Armor armor = (Armor) product;
-                info += "\nType: " + armor.getType() + "\nDefense: " + armor.getDefense() + "\nDurability: "
-                        + armor.getDurability();
-            } else if (product instanceof Weapons) {
-                Weapons weapon = (Weapons) product;
-                info += "\nDamage: " + weapon.getDamage() + "\nDurability: " + weapon.getDurability() + "\nWeight: "
-                        + weapon.getWeight();
-            } else if (product instanceof Ability) {
-                Ability ability = (Ability) product;
-                info += "\nType: " + ability.getType() + "\nCooldown: " + ability.getCooldown() + "\nDuration: "
-                        + ability.getDuration();
-            }
-
-            productInfo.setText(info);
-            clearStackPane();
-            productPane.setVisible(true);
+            viewProduct(product);
         });
 
         // Add components to the card
@@ -538,6 +615,10 @@ public class AdminController implements Initializable {
         return card;
     }
 
+    /**
+     * Clear the stack pane
+     * @Note: Used to clear the stack pane
+     */
     private void clearStackPane() {
         for (int i = 0; i < adminCont.getChildren().size(); i++) {
             adminCont.getChildren().get(i).setVisible(false);

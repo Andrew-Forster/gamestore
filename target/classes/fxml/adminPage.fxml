@@ -264,7 +264,7 @@
                               <TextArea fx:id="descUpdate" prefHeight="77.0" prefWidth="266.0" promptText="Swings hard" />
                            </children>
                         </VBox>
-                        <JFXButton layoutX="245.0" layoutY="324.0" onAction="#addProduct" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #fc3737;" text="Discard Changes" textFill="#fffbfb" />
+                        <JFXButton layoutX="245.0" layoutY="324.0" onAction="#cancelUpdate" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #fc3737;" text="Discard Changes" textFill="#fffbfb" />
                      </children>
                   </AnchorPane>
                </children></StackPane>
