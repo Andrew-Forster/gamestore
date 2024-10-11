@@ -1,4 +1,4 @@
-package andrewjf.Core.Interfaces_Abstract;
+package andrewjf.Models.Interfaces_Abstract;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;

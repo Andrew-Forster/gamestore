@@ -1,11 +1,11 @@
-package andrewjf.Core;
+package andrewjf.Models;
 
 import java.util.ArrayList;
 
-import andrewjf.Core.Interfaces_Abstract.SellableProducts;
-import andrewjf.Core.Items.Ability;
-import andrewjf.Core.Items.Armor;
-import andrewjf.Core.Items.Weapons;
+import andrewjf.Models.Interfaces_Abstract.SellableProducts;
+import andrewjf.Models.Items.Ability;
+import andrewjf.Models.Items.Armor;
+import andrewjf.Models.Items.Weapons;
 
 public class Products {
 
@@ -64,15 +64,24 @@ public class Products {
     }
 
     public void updateProduct(SellableProducts product) {
-        for (SellableProducts p : products) {
-            if (p.getId() == product.getId()) {
-                p = product;
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == product.getId()) {
+                products.set(i, product);
             }
         }
     }
 
     public ArrayList<SellableProducts> getProducts() {
         return products;
+    }
+
+    public SellableProducts getProduct(int id) {
+        for (SellableProducts product : products) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
     }
 
     public ArrayList<SellableProducts> getProducts(String name) {

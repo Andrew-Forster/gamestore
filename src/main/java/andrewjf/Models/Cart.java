@@ -1,7 +1,8 @@
-package andrewjf.Core;
+package andrewjf.Models;
 
 import java.util.ArrayList;
-import andrewjf.Core.Interfaces_Abstract.SellableProducts;
+
+import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 
 public class Cart {
     

@@ -4,6 +4,7 @@ module andrewjf {
     requires javafx.media;
     requires javafx.graphics;
     requires java.sql;
+    requires com.jfoenix;
     opens andrewjf to javafx.fxml;
     exports andrewjf;
     exports andrewjf.Controllers;

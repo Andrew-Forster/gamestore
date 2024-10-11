@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 // Dominant (60%): Dark Navy Blue #0B0F33
-// Secondary (30%): Bright Crimson Red #FF4B2B
-// Accent (10%): Cyan Blue #00D1FF
+// Accent (10%): Cyan Blue #1994f2
+// Danger: Red  #fc3737
 
 public class MainApp extends Application {
     private static Stage stage;

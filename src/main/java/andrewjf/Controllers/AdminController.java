@@ -21,39 +21,44 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXDialog;
+
+import andrewjf.Models.Store;
+import andrewjf.Models.Interfaces_Abstract.SellableProducts;
+import andrewjf.Models.Items.Ability;
+import andrewjf.Models.Items.Armor;
+import andrewjf.Models.Items.Weapons;
+
 import java.sql.Date;
 
-import static andrewjf.Core.Products.generateId;
 import static andrewjf.MainApp.setRoot;
-
-import andrewjf.Core.Store;
-import andrewjf.Core.Interfaces_Abstract.SellableProducts;
-import andrewjf.Core.Items.Ability;
-import andrewjf.Core.Items.Armor;
-import andrewjf.Core.Items.Weapons;
+import static andrewjf.Models.Products.generateId;
 
 public class AdminController implements Initializable {
 
     private static Store store = Store.getInstance();
+    private static int currentlySelected = -1;
 
     @FXML
     private VBox menu;
-
     @FXML
     private StackPane adminCont;
-
     @FXML
-    private AnchorPane products;
+    private JFXDialog confirmDialog;
 
+    // Stack Pane children
+    @FXML
+    private AnchorPane productsPane;
     @FXML
     private AnchorPane productPane;
+    @FXML
+    private AnchorPane addPane;
+    @FXML
+    private AnchorPane updatePane;
 
     @FXML
     private TextField search;
-
-    @FXML
-    private AnchorPane add;
-
     @FXML
     private ComboBox<String> itemType;
 
@@ -101,22 +106,79 @@ public class AdminController implements Initializable {
             productCont.add(card, i % 3, i / 3);
         }
 
-        for (int i = 0; i < products.getChildren().size(); i++) {
-            if (products.getChildren().get(i) instanceof GridPane) {
-                products.getChildren().remove(i);
+        for (int i = 0; i < productsPane.getChildren().size(); i++) {
+            if (productsPane.getChildren().get(i) instanceof GridPane) {
+                productsPane.getChildren().remove(i);
             }
         }
 
-        products.getChildren().add(productCont);
+        productsPane.getChildren().add(productCont);
         productCont.setLayoutY(50);
-        products.setVisible(true);
+        productsPane.setVisible(true);
 
     }
 
     @FXML
     private void addPage(ActionEvent event) {
         clearStackPane();
-        add.setVisible(true);
+        addPane.setVisible(true);
+    }
+
+    @FXML
+    private Label prop1update;
+    @FXML
+    private Label prop2update;
+    @FXML
+    private Label prop3update;
+    @FXML
+    private TextField prop1inputUpdate;
+    @FXML
+    private TextField prop2inputUpdate;
+    @FXML
+    private TextField prop3inputUpdate;
+
+    @FXML
+    private void updatePage(ActionEvent event) {
+        clearStackPane();
+        updatePane.setVisible(true);
+
+        SellableProducts product = store.getProduct(currentlySelected);
+        String type = product.getClass().getSimpleName();
+
+        switch (type) {
+            case "Armor":
+                prop1update.setText("Type");
+                prop2update.setText("Defense");
+                prop3update.setText("Durability");
+
+                prop1inputUpdate.setText(((Armor) product).getType());
+                prop2inputUpdate.setText(Integer.toString(((Armor) product).getDefense()));
+                prop3inputUpdate.setText(Integer.toString(((Armor) product).getDurability()));
+                break;
+            case "Weapon":
+                prop1update.setText("Damage");
+                prop2update.setText("Durability");
+                prop3update.setText("Weight");
+
+                prop1inputUpdate.setText(Integer.toString(((Weapons) product).getDamage()));
+                prop2inputUpdate.setText(Integer.toString(((Weapons) product).getDurability()));
+                prop3inputUpdate.setText(Integer.toString(((Weapons) product).getWeight()));
+                break;
+            case "Ability":
+                prop1update.setText("Type");
+                prop2update.setText("Cooldown");
+                prop3update.setText("Duration");
+
+                prop1inputUpdate.setText(((Ability) product).getType());
+                prop2inputUpdate.setText(Integer.toString(((Ability) product).getCooldown()));
+                prop3inputUpdate.setText(Integer.toString(((Ability) product).getDuration()));
+                break;
+        }
+
+        nameUpdate.setText(product.getName());
+        priceUpdate.setText(Double.toString(product.getPrice()));
+        descUpdate.setText(product.getDescription());
+
     }
 
     @FXML
@@ -130,10 +192,10 @@ public class AdminController implements Initializable {
             productCont.add(card, i % 3, i / 3);
         }
         // Remove previous GridPane
-        products.getChildren().remove(1);
-        products.getChildren().add(productCont);
+        productsPane.getChildren().remove(1);
+        productsPane.getChildren().add(productCont);
         productCont.setLayoutY(50);
-        products.setVisible(true);
+        productsPane.setVisible(true);
 
     }
 
@@ -195,6 +257,7 @@ public class AdminController implements Initializable {
     @FXML
     /**
      * Add product to store and display
+     * 
      * @param event
      */
     private void addProduct(ActionEvent event) {
@@ -208,7 +271,8 @@ public class AdminController implements Initializable {
         int id = generateId();
         String date = new Date(System.currentTimeMillis()).toString();
 
-        addErr.setText((p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) ? "Properties cannot be empty" : addErr.getText());
+        addErr.setText(
+                (p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) ? "Properties cannot be empty" : addErr.getText());
         addErr.setText(price.getText().isEmpty() ? "Price cannot be empty" : addErr.getText());
         addErr.setText(d.isEmpty() ? "Description cannot be empty" : addErr.getText());
         addErr.setText(n.isEmpty() ? "Name cannot be empty" : addErr.getText());
@@ -229,7 +293,6 @@ public class AdminController implements Initializable {
             addErr.setVisible(true);
             return;
         }
-
 
         switch (type) {
             case "Armor":
@@ -275,7 +338,7 @@ public class AdminController implements Initializable {
             default:
                 break;
         }
-        
+
         addErr.setText("Product added, Redirecting...");
         addErr.setStyle("-fx-text-fill: #40fa39;");
         addErr.setVisible(true);
@@ -283,7 +346,7 @@ public class AdminController implements Initializable {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev -> {
             addErr.setStyle("-fx-text-fill: #fa3838;");
             addErr.setVisible(false);
-    
+
             try {
                 displayProducts(null);
                 search.setText("id:" + id);
@@ -296,7 +359,139 @@ public class AdminController implements Initializable {
         timeline.play();
     }
 
-    
+    @FXML
+    private TextField nameUpdate;
+    @FXML
+    private TextField priceUpdate;
+    @FXML
+    private TextArea descUpdate;
+
+    @FXML
+    private Label addErrUpdate;
+
+    @FXML
+    private void updateProduct(ActionEvent event) {
+        SellableProducts product = store.getProduct(currentlySelected);
+        String type = product.getClass().getSimpleName();
+        double p = 0;
+        String n = nameUpdate.getText();
+        String d = descUpdate.getText();
+        String p1 = prop1inputUpdate.getText();
+        String p2 = prop2inputUpdate.getText();
+        String p3 = prop3inputUpdate.getText();
+
+        addErrUpdate.setText((p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) ? "Properties cannot be empty" : addErrUpdate.getText());
+        addErrUpdate.setText(priceUpdate.getText().isEmpty() ? "Price cannot be empty" : addErrUpdate.getText());
+        addErrUpdate.setText(d.isEmpty() ? "Description cannot be empty" : addErrUpdate.getText());
+        addErrUpdate.setText(n.isEmpty() ? "Name cannot be empty" : addErrUpdate.getText());
+        if (n.isEmpty() || d.isEmpty() || priceUpdate.getText().isEmpty() || p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) {
+            addErrUpdate.setVisible(true);
+
+            return;
+        }
+
+        // Needed here to avoid NumberFormatException
+        try {
+            p = Double.parseDouble(priceUpdate.getText());
+            if (Double.isNaN(p)) {
+                addErrUpdate.setText("The Price must be a number");
+                addErrUpdate.setVisible(true);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            addErrUpdate.setText("Price must be a number");
+            addErrUpdate.setVisible(true);
+            return;
+        }
+
+        switch (type) {
+            case "Armor":
+                // Input validation
+                addErrUpdate.setText((!p2.matches("[0-9]+")) ? "Durability must be a number" : addErrUpdate.getText());
+                addErrUpdate.setText((!p3.matches("[0-9]+")) ? "Weight must be a number" : addErrUpdate.getText());
+                if (!p2.matches("[0-9]+") || !p3.matches("[0-9]+")) {
+                    addErrUpdate.setVisible(true);
+                }
+
+                // Create armor object
+                Armor armor = new Armor(product.getId(), n, d, p, product.getCreatedOn(), p1, Integer.parseInt(p2), Integer.parseInt(p3));
+                store.updateProduct(armor);
+                break;
+            case "Weapon":
+                // Input validation
+                addErrUpdate.setText((!p1.matches("[0-9]+")) ? "Damage must be a number" : addErrUpdate.getText());
+                addErrUpdate.setText((!p2.matches("[0-9]+")) ? "Durability must be a number" : addErrUpdate.getText());
+                addErrUpdate.setText((!p3.matches("[0-9]+")) ? "Weight must be a number" : addErrUpdate.getText());
+                if (!p1.matches("[0-9]+") || !p2.matches("[0-9]+") || !p3.matches("[0-9]+")) {
+                    addErrUpdate.setVisible(true);
+                    return;
+                }
+
+                // Create weapon object
+                Weapons weapon = new Weapons(product.getId(), n, d, p, product.getCreatedOn(), Integer.parseInt(p1), Integer.parseInt(p2),
+                        Integer.parseInt(p3));
+                store.updateProduct(weapon);
+                break;
+            case "Ability":
+                // Input validation
+                addErrUpdate.setText((!p2.matches("[0-9]+")) ? "Cooldown must be a number" : addErrUpdate.getText());
+                addErrUpdate.setText((!p3.matches("[0-9]+")) ? "Duration must be a number" : addErrUpdate.getText());
+                if (!p2.matches("[0-9]+") || !p3.matches("[0-9]+")) {
+                    addErrUpdate.setVisible(true);
+                    return;
+                }
+
+                // Create ability object
+                Ability ability = new Ability(product.getId(), n, d, p, product.getCreatedOn(), p1, Integer.parseInt(p2),
+                        Integer.parseInt(p3));
+                store.updateProduct(ability);
+                break;
+        }
+
+        addErrUpdate.setText("Product updated, Redirecting...");
+        addErrUpdate.setStyle("-fx-text-fill: #40fa39;");
+        addErrUpdate.setVisible(true);
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev -> {
+            addErrUpdate.setStyle("-fx-text-fill: #fa3838;");
+            addErrUpdate.setVisible(false);
+
+            try {
+                displayProducts(null);
+                search.setText("id:" + product.getId());
+                searchProducts(null);
+            } catch (IOException e) {
+                System.out.println("Error displaying products");
+                e.printStackTrace();
+            }
+        }));
+        timeline.play();
+    }
+
+    @FXML
+    private void deleteProduct(ActionEvent event) {
+        confirmDialog.setVisible(true);
+    }
+
+    @FXML
+    private void confirmDelete(ActionEvent event) throws IOException {
+        SellableProducts product = store.getProduct(currentlySelected);
+        store.removeProduct(product);
+        try {
+            displayProducts(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        confirmDialog.setVisible(false);
+
+        clearStackPane();
+        displayProducts(null);
+    }
+
+    @FXML
+    private void cancelDelete(ActionEvent event) {
+        confirmDialog.setVisible(false);
+    }
 
     @FXML
     private Label productInfo;
@@ -314,20 +509,23 @@ public class AdminController implements Initializable {
         // Edit button
         Button editButton = new Button("View");
         editButton.setOnAction(event -> {
-            String info = 
-            "Name: " + product.getName() + "\n" + 
-            "ID: " + product.getId() + "\n" + 
-            "Price: " + product.getPrice() + "\n" + 
-            "Description: " + product.getDescription();
+            currentlySelected = product.getId();
+            String info = "Name: " + product.getName() + "\n" +
+                    "ID: " + product.getId() + "\n" +
+                    "Price: " + product.getPrice() + "\n" +
+                    "Description: " + product.getDescription();
             if (product instanceof Armor) {
                 Armor armor = (Armor) product;
-                info += "\nType: " + armor.getType() + "\nDefense: " + armor.getDefense() + "\nDurability: " + armor.getDurability();
+                info += "\nType: " + armor.getType() + "\nDefense: " + armor.getDefense() + "\nDurability: "
+                        + armor.getDurability();
             } else if (product instanceof Weapons) {
                 Weapons weapon = (Weapons) product;
-                info += "\nDamage: " + weapon.getDamage() + "\nDurability: " + weapon.getDurability() + "\nWeight: " + weapon.getWeight();
+                info += "\nDamage: " + weapon.getDamage() + "\nDurability: " + weapon.getDurability() + "\nWeight: "
+                        + weapon.getWeight();
             } else if (product instanceof Ability) {
                 Ability ability = (Ability) product;
-                info += "\nType: " + ability.getType() + "\nCooldown: " + ability.getCooldown() + "\nDuration: " + ability.getDuration();
+                info += "\nType: " + ability.getType() + "\nCooldown: " + ability.getCooldown() + "\nDuration: "
+                        + ability.getDuration();
             }
 
             productInfo.setText(info);

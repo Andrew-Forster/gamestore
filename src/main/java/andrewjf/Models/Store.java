@@ -1,9 +1,10 @@
-package andrewjf.Core;
+package andrewjf.Models;
+
+import static andrewjf.Models.Products.generateId;
 
 import java.util.ArrayList;
 
-import andrewjf.Core.Interfaces_Abstract.SellableProducts;
-import static andrewjf.Core.Products.generateId;
+import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 
 // import andrewf.Core.Interfaces_Abstract.SellableProducts;
 
@@ -25,6 +26,10 @@ public class Store {
     
     public ArrayList<SellableProducts> getProducts() {
         return products.getProducts();
+    }
+
+    public SellableProducts getProduct(int id) {
+        return products.getProduct(id);
     }
 
     public ArrayList<SellableProducts> searchProducts(String searchTerm) {

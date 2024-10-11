@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -87,7 +88,7 @@
                 </HBox>
                 <StackPane fx:id="adminCont" layoutX="212.0" layoutY="45.0" prefHeight="376.0" prefWidth="477.0">
                <children>
-                  <AnchorPane fx:id="products" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <AnchorPane fx:id="productsPane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
                            <font>
@@ -96,18 +97,18 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="productPane" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="productPane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <Label fx:id="productInfo" alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="297.0" prefWidth="447.0" text="Label" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font></Label>
-                        <JFXButton layoutX="295.0" layoutY="319.0" onAction="#addProduct" prefHeight="39.0" prefWidth="79.0" style="-fx-background-color: #1994f2;" text="📝  Edit" textFill="#fffbfb" />
-                        <JFXButton layoutX="386.0" layoutY="319.0" onAction="#addProduct" prefHeight="39.0" prefWidth="79.0" style="-fx-background-color: #fc3737;" text="🗑  Delete" textFill="#fffbfb" />
+                        <JFXButton layoutX="295.0" layoutY="319.0" onAction="#updatePage" prefHeight="39.0" prefWidth="79.0" style="-fx-background-color: #1994f2;" text="📝  Edit" textFill="#fffbfb" />
+                        <JFXButton layoutX="386.0" layoutY="319.0" onAction="#deleteProduct" prefHeight="39.0" prefWidth="79.0" style="-fx-background-color: #fc3737;" text="🗑  Delete" textFill="#fffbfb" />
                         <JFXButton layoutX="14.0" layoutY="319.0" onAction="#displayProducts" prefHeight="39.0" prefWidth="166.0" style="-fx-background-color: #1994f2;" text="⬅  Back to Products" textFill="#fffbfb" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="add" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="469.0" visible="false">
+                  <AnchorPane fx:id="addPane" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="469.0" visible="false">
                      <children>
                         <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Add a Product" textAlignment="RIGHT" textFill="#ebdfdf">
                            <font>
@@ -189,44 +190,112 @@
                         <Insets left="10.0" />
                      </StackPane.margin>
                   </AnchorPane>
-                  <AnchorPane fx:id="remove" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <AnchorPane fx:id="updatePane" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="469.0" visible="false">
                      <children>
-                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
+                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="79.0" text="Editing..." textAlignment="RIGHT" textFill="#ebdfdf">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="update" prefHeight="200.0" prefWidth="200.0" visible="false">
-                     <children>
-                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
+                        <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="38.0" prefHeight="40.0" prefWidth="166.0">
+                           <children>
+                              <Label prefHeight="31.0" prefWidth="61.0" text="Name" textAlignment="RIGHT" textFill="#ebdfdf">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="nameUpdate" prefHeight="26.0" prefWidth="90.0" promptText="Sword" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="89.0" prefHeight="40.0" prefWidth="166.0">
+                           <children>
+                              <Label prefHeight="31.0" prefWidth="61.0" text="Price" textAlignment="RIGHT" textFill="#ebdfdf">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="priceUpdate" prefHeight="26.0" prefWidth="92.0" promptText="500" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="11.0" layoutY="175.0" prefHeight="40.0" prefWidth="238.0">
+                           <children>
+                              <Label fx:id="prop1update" prefHeight="31.0" prefWidth="98.0" text="Property #1" textAlignment="RIGHT" textFill="#ebdfdf" wrapText="true">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="prop1inputUpdate" prefHeight="26.0" prefWidth="99.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="11.0" layoutY="215.0" prefHeight="40.0" prefWidth="238.0">
+                           <children>
+                              <Label fx:id="prop2update" prefHeight="31.0" prefWidth="98.0" text="Property #2" textAlignment="RIGHT" textFill="#ebdfdf" wrapText="true">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="prop2inputUpdate" prefHeight="26.0" prefWidth="99.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="11.0" layoutY="255.0" prefHeight="40.0" prefWidth="238.0">
+                           <children>
+                              <Label fx:id="prop3update" prefHeight="31.0" prefWidth="98.0" text="Property #3" textAlignment="RIGHT" textFill="#ebdfdf" wrapText="true">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="prop3inputUpdate" prefHeight="26.0" prefWidth="99.0" />
+                           </children>
+                        </HBox>
+                        <JFXButton layoutX="12.0" layoutY="324.0" onAction="#updateProduct" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #1994f2;" text="Update Product" textFill="#fffbfb" />
+                        <Line endX="207.60000610351562" layoutX="271.0" layoutY="168.0" startX="-261.9999694824219" stroke="WHITE" />
+                        <Label fx:id="addErrUpdate" layoutX="11.0" layoutY="292.0" prefHeight="31.0" prefWidth="447.0" textAlignment="RIGHT" textFill="#fa3838">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="save" prefHeight="200.0" prefWidth="200.0" visible="false">
-                     <children>
-                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="load" prefHeight="200.0" prefWidth="200.0" visible="false">
-                     <children>
-                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
+                        <VBox layoutX="181.0" layoutY="14.0" prefHeight="117.0" prefWidth="266.0">
+                           <children>
+                              <Label prefHeight="31.0" prefWidth="100.0" text="Description" textAlignment="CENTER" textFill="#ebdfdf">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextArea fx:id="descUpdate" prefHeight="77.0" prefWidth="266.0" promptText="Swings hard" />
+                           </children>
+                        </VBox>
+                        <JFXButton layoutX="245.0" layoutY="324.0" onAction="#addProduct" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #fc3737;" text="Discard Changes" textFill="#fffbfb" />
                      </children>
                   </AnchorPane>
                </children></StackPane>
             <Line endX="328.0" endY="7.62939453125E-6" layoutX="370.0" layoutY="48.0" startX="-369.33331298828125" strokeWidth="3.0" />
+            <JFXDialog fx:id="confirmDialog" layoutX="216.0" layoutY="51.0" overlayClose="false" prefHeight="362.0" prefWidth="480.0" style="-fx-background-color: #2b2929;">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="197.0" prefWidth="266.0">
+                     <children>
+                        <Label prefHeight="28.0" prefWidth="266.0" text="Are you sure you want to delete this product?" textFill="WHITE">
+                           <VBox.margin>
+                              <Insets left="3.0" right="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="111.0" prefWidth="266.0">
+                           <children>
+                              <JFXButton onAction="#confirmDelete" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: #fc3737;" text="🗑  Delete" textFill="#fffbfb">
+                                 <HBox.margin>
+                                    <Insets left="3.0" right="3.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton onAction="#cancelDelete" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: #1994f2;" text="⬅  Cancel" textFill="#fffbfb">
+                                 <HBox.margin>
+                                    <Insets left="3.0" right="3.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </JFXDialog>
             </children>
             <opaqueInsets>
                 <Insets />

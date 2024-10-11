@@ -1,5 +1,5 @@
-package andrewjf.Core.Items;
-import andrewjf.Core.Interfaces_Abstract.SellableProducts;
+package andrewjf.Models.Items;
+import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 
 public class Ability extends SellableProducts {
     String type; // Offensive, Defensive, Healing, Buff

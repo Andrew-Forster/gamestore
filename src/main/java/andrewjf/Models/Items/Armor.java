@@ -1,6 +1,6 @@
-package andrewjf.Core.Items;
+package andrewjf.Models.Items;
 
-import andrewjf.Core.Interfaces_Abstract.SellableProducts;
+import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 
 
 public class Armor extends SellableProducts {
