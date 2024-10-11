@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="andrewjf.Controllers.AdminController">
+    <children>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" VBox.vgrow="ALWAYS">
+            <children>
+                <!-- Anchor the ImageView to the sides -->
+                <ImageView fitHeight="434.0" fitWidth="707.0" layoutX="-8.0" layoutY="-8.0" opacity="0.86" pickOnBounds="true">
+                    <image>
+                        <Image url="@../images/bg.png" />
+                    </image>
+                    <effect>
+                        <GaussianBlur />
+                    </effect>
+                </ImageView>
+
+                <!-- Anchor the VBox in the center of the AnchorPane -->
+                <VBox fx:id="menu" layoutY="47.0" prefHeight="381.0" prefWidth="212.0" style="-fx-background-color: #0B0F33;">
+                    <children>
+                        <Label prefHeight="39.0" prefWidth="213.0" style="-fx-label-padding: 5;" text="Pick an action below:" textFill="#ffe4f4" />
+                        <Line endX="107.95953369140625" endY="-3.715356115208124E-6" startX="-100.0" stroke="WHITE" />
+                        <JFXButton onAction="#displayProducts" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="View Products" textFill="#fff4f4">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></JFXButton>
+                        <JFXButton onAction="#addPage" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="Add Product" textFill="#fff4f4">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
+                        <JFXButton prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="Save Products" textFill="#fff4f4">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
+                        <JFXButton prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="Load Products" textFill="#fff4f4">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
+                    </children>
+                    <!-- Center VBox within the AnchorPane -->
+                    <AnchorPane.topAnchor>47.0</AnchorPane.topAnchor>
+                    <AnchorPane.bottomAnchor>-2.0</AnchorPane.bottomAnchor>
+                    <AnchorPane.leftAnchor>0.0</AnchorPane.leftAnchor>
+                    <AnchorPane.rightAnchor>487.0</AnchorPane.rightAnchor>
+                </VBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="658.0">
+                    <children>
+                        <JFXHamburger onMouseClicked="#toggleMenu" prefHeight="48.0" prefWidth="49.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXHamburger>
+                        <JFXButton onAction="#gotoMain" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #FF4B2B; -fx-background-insets: 5px;" text="Home" textFill="#fff4f4">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="501.0">
+                     <children>
+                        <Label prefHeight="31.0" prefWidth="61.0" text="Search:" textAlignment="RIGHT" textFill="#ebdfdf">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="search" onKeyTyped="#searchProducts" prefHeight="32.0" prefWidth="183.0" />
+                     </children>
+                  </HBox>
+                    </children>
+                </HBox>
+                <StackPane fx:id="adminCont" layoutX="212.0" layoutY="45.0" prefHeight="376.0" prefWidth="477.0">
+               <children>
+                  <AnchorPane fx:id="products" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="productPane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="productInfo" alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="297.0" prefWidth="447.0" text="Label" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Label>
+                        <JFXButton layoutX="295.0" layoutY="319.0" onAction="#addProduct" prefHeight="39.0" prefWidth="79.0" style="-fx-background-color: #1994f2;" text="📝  Edit" textFill="#fffbfb" />
+                        <JFXButton layoutX="386.0" layoutY="319.0" onAction="#addProduct" prefHeight="39.0" prefWidth="79.0" style="-fx-background-color: #fc3737;" text="🗑  Delete" textFill="#fffbfb" />
+                        <JFXButton layoutX="14.0" layoutY="319.0" onAction="#displayProducts" prefHeight="39.0" prefWidth="166.0" style="-fx-background-color: #1994f2;" text="⬅  Back to Products" textFill="#fffbfb" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="add" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="469.0" visible="false">
+                     <children>
+                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Add a Product" textAlignment="RIGHT" textFill="#ebdfdf">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="38.0" prefHeight="40.0" prefWidth="166.0">
+                           <children>
+                              <Label prefHeight="31.0" prefWidth="61.0" text="Name" textAlignment="RIGHT" textFill="#ebdfdf">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="name" prefHeight="26.0" prefWidth="90.0" promptText="Sword" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="89.0" prefHeight="40.0" prefWidth="166.0">
+                           <children>
+                              <Label prefHeight="31.0" prefWidth="61.0" text="Price" textAlignment="RIGHT" textFill="#ebdfdf">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="price" prefHeight="26.0" prefWidth="92.0" promptText="500" />
+                           </children>
+                        </HBox>
+                        <ComboBox fx:id="itemType" editable="true" layoutX="9.0" layoutY="174.0" onAction="#chooseType" prefHeight="28.0" prefWidth="203.0" promptText="Pick an Item Type" visibleRowCount="3">
+
+                        </ComboBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="13.0" layoutY="215.0" prefHeight="40.0" prefWidth="238.0">
+                           <children>
+                              <Label fx:id="prop1" prefHeight="31.0" prefWidth="98.0" text="Property #1" textAlignment="RIGHT" textFill="#ebdfdf" wrapText="true">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="prop1input" prefHeight="26.0" prefWidth="99.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="226.0" layoutY="168.0" prefHeight="40.0" prefWidth="238.0">
+                           <children>
+                              <Label fx:id="prop2" prefHeight="31.0" prefWidth="98.0" text="Property #2" textAlignment="RIGHT" textFill="#ebdfdf" wrapText="true">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="prop2input" prefHeight="26.0" prefWidth="99.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="226.0" layoutY="215.0" prefHeight="40.0" prefWidth="238.0">
+                           <children>
+                              <Label fx:id="prop3" prefHeight="31.0" prefWidth="98.0" text="Property #3" textAlignment="RIGHT" textFill="#ebdfdf" wrapText="true">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="prop3input" prefHeight="26.0" prefWidth="99.0" />
+                           </children>
+                        </HBox>
+                        <JFXButton layoutX="12.0" layoutY="324.0" onAction="#addProduct" prefHeight="39.0" prefWidth="447.0" style="-fx-background-color: #1994f2;" text="Add Product" textFill="#fffbfb" />
+                        <Line endX="207.60000610351562" layoutX="272.0" layoutY="153.0" startX="-261.9999694824219" stroke="WHITE" />
+                        <Label fx:id="addErr" layoutX="11.0" layoutY="292.0" prefHeight="31.0" prefWidth="447.0" textAlignment="RIGHT" textFill="#fa3838">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <VBox layoutX="181.0" layoutY="14.0" prefHeight="117.0" prefWidth="266.0">
+                           <children>
+                              <Label prefHeight="31.0" prefWidth="100.0" text="Description" textAlignment="CENTER" textFill="#ebdfdf">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextArea fx:id="desc" prefHeight="77.0" prefWidth="266.0" promptText="Swings hard" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin>
+                  </AnchorPane>
+                  <AnchorPane fx:id="remove" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="update" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="save" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="load" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <Label layoutX="14.0" layoutY="7.0" prefHeight="31.0" prefWidth="212.0" text="Products:" textAlignment="RIGHT" textFill="#ebdfdf">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children></StackPane>
+            <Line endX="328.0" endY="7.62939453125E-6" layoutX="370.0" layoutY="48.0" startX="-369.33331298828125" strokeWidth="3.0" />
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </AnchorPane>
+    </children>
+</VBox>

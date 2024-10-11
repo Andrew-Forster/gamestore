@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"andrewf"},{"l":"andrewf.Controllers"},{"l":"andrewf.Core"},{"l":"andrewf.Core.Items"},{"l":"andrewf.UI"}];updateSearchResults();

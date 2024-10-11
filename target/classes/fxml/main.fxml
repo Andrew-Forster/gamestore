@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="andrewjf.Controllers.Controller">
+    <children>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="377.0" prefWidth="562.0" VBox.vgrow="ALWAYS">
+            <children>
+                <!-- Anchor the ImageView to the sides -->
+                <ImageView fitHeight="415.0" fitWidth="640.0" opacity="0.86" pickOnBounds="true">
+                    <image>
+                        <Image url="@../images/bg.png" />
+                    </image>
+                    <!-- Anchor ImageView to all sides -->
+                    <AnchorPane.topAnchor>0.0</AnchorPane.topAnchor>
+                    <AnchorPane.bottomAnchor>0.0</AnchorPane.bottomAnchor>
+                    <AnchorPane.leftAnchor>0.0</AnchorPane.leftAnchor>
+                    <AnchorPane.rightAnchor>0.0</AnchorPane.rightAnchor>
+               <effect>
+                  <GaussianBlur />
+               </effect>
+                </ImageView>
+
+                <!-- Anchor the VBox in the center of the AnchorPane -->
+                <VBox alignment="CENTER" prefHeight="148.0" prefWidth="216.0">
+                    <children>
+                        <Label prefHeight="39.0" prefWidth="180.0" style="-fx-label-padding: 5;" text="Please choose your access level:" textFill="#ffe4f4" />
+                        <JFXButton onAction="#gotoAdmin" prefHeight="40.0" prefWidth="186.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 5px;" text="User" textFill="#fff4f4" />
+                        <JFXButton onAction="#gotoAdmin" prefHeight="40.0" prefWidth="186.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 5px;" text="Admin" textFill="#fff4f4" />
+                    </children>
+                    <!-- Center VBox within the AnchorPane -->
+                    <AnchorPane.topAnchor>0.0</AnchorPane.topAnchor>
+                    <AnchorPane.bottomAnchor>0.0</AnchorPane.bottomAnchor>
+                    <AnchorPane.leftAnchor>0.0</AnchorPane.leftAnchor>
+                    <AnchorPane.rightAnchor>0.0</AnchorPane.rightAnchor>
+                </VBox>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </AnchorPane>
+    </children>
+</VBox>
