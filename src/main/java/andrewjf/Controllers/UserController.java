@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 
 import andrewjf.Models.Store;
@@ -175,6 +176,29 @@ public class UserController implements Initializable {
         clearStackPane();
         productPane.setVisible(true);
     }
+
+    @FXML
+    private JFXButton btnAddToCart;
+
+    @FXML
+    private JFXButton btnRemFromCart;
+
+
+    @FXML
+    private void addToCart(ActionEvent event) {
+        // store.addToCart(currentlySelected);
+    }
+
+    @FXML
+    private void remFromCart(ActionEvent event) {
+        // store.removeFromCart(currentlySelected);
+    }
+
+
+
+
+
+
 
     /**
      * Create a card for the product
