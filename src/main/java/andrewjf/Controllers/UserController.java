@@ -11,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
@@ -27,13 +30,13 @@ import andrewjf.Models.Items.Ability;
 import andrewjf.Models.Items.Armor;
 import andrewjf.Models.Items.Weapons;
 
-
 import static andrewjf.MainApp.setRoot;
 
 public class UserController implements Initializable {
 
     private static Store store = Store.getInstance();
     private static int currentlySelected = -1;
+    private static String currentPane = "products";
 
     @FXML
     private VBox menu;
@@ -46,11 +49,9 @@ public class UserController implements Initializable {
     @FXML
     private AnchorPane productsPane;
     @FXML
+    private AnchorPane cartPane;
+    @FXML
     private AnchorPane productPane;
-    @FXML
-    private AnchorPane addPane;
-    @FXML
-    private AnchorPane updatePane;
 
     @FXML
     private TextField search;
@@ -74,6 +75,7 @@ public class UserController implements Initializable {
 
     /**
      * Redirect to the main page
+     * 
      * @param event
      * @throws IOException
      */
@@ -82,11 +84,11 @@ public class UserController implements Initializable {
         setRoot("main", "Game Store");
     }
 
-     /**
-      * Toggles the user menu
-      * TODO: Add animation
-      * TODO: Adjust the stack pane to take up the available space
-      */
+    /**
+     * Toggles the user menu
+     * TODO: Add animation
+     * TODO: Adjust the stack pane to take up the available space
+     */
     @FXML
     private void toggleMenu() {
         menu.setVisible(!menu.isVisible());
@@ -95,6 +97,7 @@ public class UserController implements Initializable {
 
     /**
      * Display the products in the store
+     * 
      * @param event Use 'null' to call this function from another function
      * @throws IOException
      */
@@ -116,13 +119,50 @@ public class UserController implements Initializable {
 
         productsPane.getChildren().add(productCont);
         productCont.setLayoutY(50);
+        productCont.setLayoutX(10);
         productsPane.setVisible(true);
+        currentPane = "products";
+    }
 
+    /**
+     * Display the cart
+     * 
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void displayCart(ActionEvent event) throws IOException {
+        clearStackPane();
+        ArrayList<SellableProducts> items = store.getCart();
+        GridPane productCont = new GridPane();
+        for (int i = 0; i < items.size(); i++) {
+            VBox card = createProductCard(items.get(i));
+            productCont.add(card, i % 3, i / 3);
+        }
+
+        for (int i = 0; i < cartPane.getChildren().size(); i++) {
+            if (cartPane.getChildren().get(i) instanceof GridPane) {
+                cartPane.getChildren().remove(i);
+            }
+        }
+
+        cartPane.getChildren().add(productCont);
+        productCont.setLayoutY(50);
+        productCont.setLayoutX(10);
+        cartPane.setVisible(true);
+
+        if (items.size() == 0) {
+            Label emptyCart = new Label("Your cart is empty");
+            emptyCart.setStyle("-fx-font-size: 2em; -fx-text-fill: white;");
+            productCont.add(emptyCart, 0, 0);
+        }
+        currentPane = "cart";
     }
 
     /**
      * Search for products based on the search bar
      * and display them
+     * 
      * @param event
      */
     @FXML
@@ -142,14 +182,14 @@ public class UserController implements Initializable {
         productsPane.setVisible(true);
 
     }
-    
+
     @FXML
     private Label productInfo;
-
 
     /**
      * View the product details
      * Opens the product pane
+     * 
      * @param product
      */
     private void viewProduct(SellableProducts product) {
@@ -178,30 +218,59 @@ public class UserController implements Initializable {
     }
 
     @FXML
+    private void handleCartBack(ActionEvent event) throws IOException {
+        if (currentPane.equals("cart")) {
+            displayCart(null);
+        } else {
+            displayProducts(null);
+        }
+    }
+
+    @FXML
     private JFXButton btnAddToCart;
 
     @FXML
     private JFXButton btnRemFromCart;
 
+    @FXML
+    private Label productResLbl;
 
     @FXML
     private void addToCart(ActionEvent event) {
-        // store.addToCart(currentlySelected);
+        store.addToCart(store.getProduct(currentlySelected));
+
+        productResLbl.setText("Added to cart");
+        productResLbl.setStyle("-fx-text-fill: #94f66a;");
+        productResLbl.setVisible(true);
+        cleanProductResLbl();
     }
 
     @FXML
     private void remFromCart(ActionEvent event) {
-        // store.removeFromCart(currentlySelected);
+        store.removeFromCart(store.getProduct(currentlySelected));
+
+        productResLbl.setText("Removed from cart");
+        productResLbl.setStyle("-fx-text-fill: #fc3737;");
+        productResLbl.setVisible(true);
+        cleanProductResLbl();
     }
 
-
-
-
-
-
+    private void cleanProductResLbl() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+            productResLbl.setVisible(false);
+            try {
+                displayCart(null);
+            } catch (IOException e) {
+                System.out.println("Error displaying products");
+                e.printStackTrace();
+            }
+        }));
+        timeline.play();
+    }
 
     /**
      * Create a card for the product
+     * 
      * @param product
      * @return
      */
@@ -228,6 +297,7 @@ public class UserController implements Initializable {
 
     /**
      * Clear the stack pane
+     * 
      * @Note: Used to clear the stack pane
      */
     private void clearStackPane() {
@@ -237,4 +307,3 @@ public class UserController implements Initializable {
     }
 
 }
-

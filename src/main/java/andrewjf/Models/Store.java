@@ -52,4 +52,16 @@ public class Store {
     public int generateProductId() {
         return generateId();
     }
+
+    public void addToCart(SellableProducts product) {
+        cart.addProduct(product);
+    }
+
+    public void removeFromCart(SellableProducts product) {
+        cart.removeProduct(product);
+    }
+
+    public ArrayList<SellableProducts> getCart() {
+        return cart.getProducts();
+    }
 }
