@@ -24,7 +24,7 @@ public class Controller implements Initializable {
 
     @FXML
     private void gotoUser(ActionEvent event) throws IOException {
-        setRoot( "adminPage", "User Page");
+        setRoot( "userPage", "User Page");
     }
 
     @FXML

@@ -32,7 +32,7 @@
                 <VBox alignment="CENTER" prefHeight="148.0" prefWidth="216.0">
                     <children>
                         <Label prefHeight="39.0" prefWidth="180.0" style="-fx-label-padding: 5;" text="Please choose your access level:" textFill="#ffe4f4" />
-                        <JFXButton onAction="#gotoAdmin" prefHeight="40.0" prefWidth="186.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 5px;" text="User" textFill="#fff4f4" />
+                        <JFXButton onAction="#gotoUser" prefHeight="40.0" prefWidth="186.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 5px;" text="User" textFill="#fff4f4" />
                         <JFXButton onAction="#gotoAdmin" prefHeight="40.0" prefWidth="186.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 5px;" text="Admin" textFill="#fff4f4" />
                     </children>
                     <!-- Center VBox within the AnchorPane -->
