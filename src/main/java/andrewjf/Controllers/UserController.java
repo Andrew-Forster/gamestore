@@ -2,7 +2,6 @@ package andrewjf.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -122,6 +121,10 @@ public class UserController implements Initializable {
         productCont.setLayoutX(10);
         productsPane.setVisible(true);
         currentPane = "products";
+
+        if (search.getText().length() > 0) {
+            searchProducts(null);
+        }
     }
 
     /**
@@ -168,23 +171,33 @@ public class UserController implements Initializable {
     @FXML
     private void searchProducts(KeyEvent event) {
 
-        ArrayList<SellableProducts> items = store.searchProducts(search.getText());
+        if (currentPane == "cart") {
+            return;
+        } else {
+            ArrayList<SellableProducts> items = store.searchProducts(search.getText());
 
-        GridPane productCont = new GridPane();
-        for (int i = 0; i < items.size(); i++) {
-            VBox card = createProductCard(items.get(i));
-            productCont.add(card, i % 3, i / 3);
+            GridPane productCont = new GridPane();
+            for (int i = 0; i < items.size(); i++) {
+                VBox card = createProductCard(items.get(i));
+                productCont.add(card, i % 3, i / 3);
+            }
+            // Remove previous GridPane
+            productsPane.getChildren().remove(1);
+            productsPane.getChildren().add(productCont);
+            productCont.setLayoutY(50);
+            productsPane.setVisible(true);
         }
-        // Remove previous GridPane
-        productsPane.getChildren().remove(1);
-        productsPane.getChildren().add(productCont);
-        productCont.setLayoutY(50);
-        productsPane.setVisible(true);
 
     }
 
     @FXML
     private Label productInfo;
+
+    @FXML
+    private JFXButton btnAddToCart;
+
+    @FXML
+    private JFXButton btnRemFromCart;
 
     /**
      * View the product details
@@ -212,6 +225,14 @@ public class UserController implements Initializable {
                     + ability.getDuration();
         }
 
+        if (store.getCart().contains(product)) {
+            btnAddToCart.setLayoutX(174);
+            btnRemFromCart.setVisible(true);
+        } else {
+            btnAddToCart.setLayoutX(345);
+            btnRemFromCart.setVisible(false);
+        }
+
         productInfo.setText(info);
         clearStackPane();
         productPane.setVisible(true);
@@ -225,12 +246,6 @@ public class UserController implements Initializable {
             displayProducts(null);
         }
     }
-
-    @FXML
-    private JFXButton btnAddToCart;
-
-    @FXML
-    private JFXButton btnRemFromCart;
 
     @FXML
     private Label productResLbl;
@@ -276,16 +291,18 @@ public class UserController implements Initializable {
      */
     private VBox createProductCard(SellableProducts product) {
         VBox card = new VBox();
-        card.setStyle("-fx-border-color: gray; -fx-padding: 10; -fx-alignment: center;");
+        card.setStyle("-fx-border-color: #c5d3dd; -fx-padding: 10; -fx-alignment: center;");
+        card.setSpacing(10);
 
         // Product name and price
         Label nameLabel = new Label(product.getName());
         Label priceLabel = new Label("$" + product.getPrice());
-        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: black;");
-        priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: black;");
+        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: #fff4f4;");
+        priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: #fff4f4;");
 
         // Edit button
-        Button editButton = new Button("View");
+        JFXButton editButton = new JFXButton("View");
+        editButton.setStyle("-fx-background-color: #13598b; -fx-text-fill: white;");
         editButton.setOnAction(event -> {
             viewProduct(product);
         });

@@ -131,6 +131,10 @@ public class AdminController implements Initializable {
         productCont.setLayoutY(50);
         productsPane.setVisible(true);
 
+        if (search.getText().length() > 0) {
+            searchProducts(null);
+        }
+
     }
 
     /**

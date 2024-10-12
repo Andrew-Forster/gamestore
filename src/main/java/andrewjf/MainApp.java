@@ -11,6 +11,7 @@ import java.io.IOException;
 // Dominant (60%): Dark Navy Blue #0B0F33
 // Accent (10%): Cyan Blue #1994f2
 // Danger: Red  #fc3737
+// White: #fff4f4
 
 public class MainApp extends Application {
     private static Stage stage;
@@ -27,6 +28,7 @@ public class MainApp extends Application {
 
     public static void setRoot(String fxml, String title) throws IOException {
         Scene scene = new Scene(loadFXML(fxml));
+        scene.getStylesheets().addAll(MainApp.class.getResource("/styles/Styles.css").toExternalForm());
         stage.setTitle(title);
         stage.setScene(scene);
         stage.show();

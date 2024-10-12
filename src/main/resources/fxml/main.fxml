@@ -9,24 +9,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="andrewjf.Controllers.Controller">
+<VBox id="pane" prefHeight="400.0" prefWidth="640.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="andrewjf.Controllers.Controller">
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="377.0" prefWidth="562.0" VBox.vgrow="ALWAYS">
             <children>
-                <!-- Anchor the ImageView to the sides -->
-                <ImageView fitHeight="415.0" fitWidth="640.0" opacity="0.86" pickOnBounds="true">
-                    <image>
-                        <Image url="@../images/bg.png" />
-                    </image>
-                    <!-- Anchor ImageView to all sides -->
-                    <AnchorPane.topAnchor>0.0</AnchorPane.topAnchor>
-                    <AnchorPane.bottomAnchor>0.0</AnchorPane.bottomAnchor>
-                    <AnchorPane.leftAnchor>0.0</AnchorPane.leftAnchor>
-                    <AnchorPane.rightAnchor>0.0</AnchorPane.rightAnchor>
-               <effect>
-                  <GaussianBlur />
-               </effect>
-                </ImageView>
 
                 <!-- Anchor the VBox in the center of the AnchorPane -->
                 <VBox alignment="CENTER" prefHeight="148.0" prefWidth="216.0">
