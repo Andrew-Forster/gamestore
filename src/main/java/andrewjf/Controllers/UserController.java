@@ -8,8 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -57,13 +59,18 @@ public class UserController implements Initializable {
     @FXML
     private ComboBox<String> itemType;
 
+    @FXML
+    private Pane resizable;
+    @FXML
+    private Line line;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         clearStackPane();
+        line.endXProperty().bind(resizable.widthProperty());
 
         try {
             displayProducts(null);
@@ -293,6 +300,7 @@ public class UserController implements Initializable {
         VBox card = new VBox();
         card.setStyle("-fx-border-color: #c5d3dd; -fx-padding: 10; -fx-alignment: center;");
         card.setSpacing(10);
+        card.setPrefSize(150, 125);
 
         // Product name and price
         Label nameLabel = new Label(product.getName());
