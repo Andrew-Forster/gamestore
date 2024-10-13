@@ -32,18 +32,18 @@ A JavaFX-based application that simulates an online game store, offering both **
 
 ### ✔️ Milestone 2: Admin Functions
 - Implemented admin functions for managing the inventory:
-  - Display, edit, delete products.
-  - Search for products and update quantities.
+- Display, edit, delete products.
+- Search for products and update quantities.
  
-  **[View this Iteration here](https://github.com/Andrew-Forster/gamestore/commit/75f41ef62e46a19d18959756b1a800e506da69ad)**
+**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/commit/75f41ef62e46a19d18959756b1a800e506da69ad)**
 
 ### ✔️ Milestone 3: Customer Functions
 - Implemented customer shopping functions:
-  - Display inventory and search for products.
-  - Add/remove items from the shopping cart.
-  - Update quantities in the cart and perform checkout.
+- Display inventory and search for products.
+- Add/remove items from the shopping cart.
+- Update quantities in the cart and perform checkout.
     
-  **[View this Iteration here](https://github.com/Andrew-Forster/gamestore/commit/16d8477b14cc30a2abc2e81dbc718b5709c8d864)**
+**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/commit/16d8477b14cc30a2abc2e81dbc718b5709c8d864)**
 
 ### Milestone 4: Save and Load Data using a Text File
 - Save store data to a text file in **JSON format**.
@@ -51,13 +51,13 @@ A JavaFX-based application that simulates an online game store, offering both **
 
 ### Milestone 5: Sorting Data
 - Add sorting features to inventory and cart:
-  - Sort by name, date, and price.
+- Sort by name, date, and price.
 
 ### Milestone 6: Remote Admin App
 - Develop a remote admin app using network communication:
-  - Client app handles admin functions and communicates with a server.
-  - CRUD operations are performed on the server and commands are sent using **JSON**.
-  - Network commands run on background threads to avoid UI delays.
+- Client app handles admin functions and communicates with a server.
+- CRUD operations are performed on the server and commands are sent using **JSON**.
+- Network commands run on background threads to avoid UI delays.
 
 ### Milestone 7: Unit Testing
 - Implement unit tests to verify the functionality of inventory management and shopping cart methods.
