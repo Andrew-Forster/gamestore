@@ -70,7 +70,14 @@ A JavaFX-based application that simulates an online game store, offering both **
 - **Jackson** (for JSON serialization)
 - **JUnit** (for unit testing)
 
-## Installation
-1. Clone the repository:
+## Installation & Running this application
+1. Open VScode
+   - Ensure the following extensions are installed:
+       - Extension Pack for Java
+       - Maven for Java
+2. Clone the repository:
    ```bash
    git clone <repository-url>
+  or 
+  Clone using VScode's git clone feature
+3. Open the `mainapp.java` file and click the run button at the top right.
