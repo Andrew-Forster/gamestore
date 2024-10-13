@@ -64,7 +64,7 @@ A JavaFX-based application that simulates an online game store, offering both **
 
 ---
 
-## Requirements
+## Tools Used
 - **JavaFX** (GUI framework)
 - **Maven** (dependency management)
 - **Jackson** (for JSON serialization)
@@ -75,9 +75,13 @@ A JavaFX-based application that simulates an online game store, offering both **
    - Ensure the following extensions are installed:
        - Extension Pack for Java
        - Maven for Java
-2. Clone the repository:
-   ```bash
-   git clone <repository-url>
-  or 
-  Clone using VScode's git clone feature
-3. Open the `mainapp.java` file and click the run button at the top right.
+2. Clone the repository by:
+   
+    Using VScode's git clone feature
+  
+    or
+
+     ```bash
+     git clone https://github.com/Andrew-Forster/gamestore
+    ```
+4. Open the `mainapp.java` file and click the run button at the top right.
