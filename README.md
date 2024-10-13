@@ -28,14 +28,14 @@ A JavaFX-based application that simulates an online game store, offering both **
 - Handles user input and validation.
   Note: Experimented with a Console app version before transitioning to JavaFX
 
-**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/commit/b78d98c903ba29bda8be875beff6e7e4f430ca79)**
+**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/releases/tag/v1.0.0)**
 
 ### ✔️ Milestone 2: Admin Functions
 - Implemented admin functions for managing the inventory:
 - Display, edit, delete products.
 - Search for products and update quantities.
  
-**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/commit/75f41ef62e46a19d18959756b1a800e506da69ad)**
+**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/releases/tag/v2.0.0)**
 
 ### ✔️ Milestone 3: Customer Functions
 - Implemented customer shopping functions:
@@ -43,7 +43,7 @@ A JavaFX-based application that simulates an online game store, offering both **
 - Add/remove items from the shopping cart.
 - Update quantities in the cart and perform checkout.
     
-**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/commit/16d8477b14cc30a2abc2e81dbc718b5709c8d864)**
+**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/releases/tag/v3.0.0)**
 
 ### Milestone 4: Save and Load Data using a Text File
 - Save store data to a text file in **JSON format**.
