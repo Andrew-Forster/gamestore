@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>andrewjf</groupId>
@@ -34,6 +36,30 @@
 
     <build>
         <plugins>
+
+            <!-- Maven Javadoc Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <sourcepath>src/main/java</sourcepath> <!-- Important -->
+                    <source>11</source>
+                    <doclint>none</doclint>
+                    <subpackages>andrewjf</subpackages>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin to run the main class -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <mainClass>${mainClass}</mainClass>
+                </configuration>
+            </plugin>
+
             <!-- adds file to let you run program outside of IDE -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -42,7 +68,9 @@
                         <phase>package</phase>
                         <configuration>
                             <tasks>
-                                <echo file="${project.build.directory}/runme.bat">start jlink-image\bin\javaw -jar modules\${project.artifactId}-${project.version}.jar</echo>
+                                <echo file="${project.build.directory}/runme.bat">start
+                                    jlink-image\bin\javaw -jar
+                                    modules\${project.artifactId}-${project.version}.jar</echo>
                             </tasks>
                         </configuration>
                         <goals>
