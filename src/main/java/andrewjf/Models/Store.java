@@ -64,4 +64,8 @@ public class Store {
     public ArrayList<SellableProducts> getCart() {
         return cart.getProducts();
     }
+
+    public double checkout() {
+        return cart.checkout();
+    }
 }

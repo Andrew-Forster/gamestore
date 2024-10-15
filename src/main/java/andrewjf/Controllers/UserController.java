@@ -101,6 +101,24 @@ public class UserController implements Initializable {
         menu.setManaged(menu.isVisible());
     }
 
+
+    @FXML
+    private Label lblCartPrice;
+
+    /**
+     * Checkout the cart and display the total cart price
+     * @param event Use 'null' to call this function from another function
+     * @throws IOException
+     */
+    @FXML
+    private void checkout(ActionEvent event) throws IOException {
+        
+        double total = store.checkout();
+        lblCartPrice.setText("Total: $" + total);
+        cartPane.setVisible(true);
+        currentPane = "cart";  
+    }
+
     /**
      * Display the products in the store
      * 
@@ -142,6 +160,7 @@ public class UserController implements Initializable {
      */
     @FXML
     private void displayCart(ActionEvent event) throws IOException {
+        lblCartPrice.setVisible(false);
         clearStackPane();
         ArrayList<SellableProducts> items = store.getCart();
         GridPane productCont = new GridPane();
@@ -233,10 +252,11 @@ public class UserController implements Initializable {
         }
 
         if (store.getCart().contains(product)) {
-            btnAddToCart.setLayoutX(174);
+            AnchorPane.setRightAnchor(btnAddToCart, 179.2);
+            
             btnRemFromCart.setVisible(true);
         } else {
-            btnAddToCart.setLayoutX(345);
+            AnchorPane.setRightAnchor(btnAddToCart, 14.2);
             btnRemFromCart.setVisible(false);
         }
 
@@ -289,6 +309,9 @@ public class UserController implements Initializable {
         }));
         timeline.play();
     }
+
+
+
 
     /**
      * Create a card for the product

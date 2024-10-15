@@ -19,8 +19,15 @@ public class Cart {
     public ArrayList<SellableProducts> getProducts() {
         return userCart;
     }
-    
-    //TODO: Checkout Functionality
+
+    public double checkout() {
+        double total = 0;
+        for (SellableProducts product : userCart) {
+            total += product.getPrice();
+        }
+        // userCart.clear();
+        return total;
+    }
     
 
 }
