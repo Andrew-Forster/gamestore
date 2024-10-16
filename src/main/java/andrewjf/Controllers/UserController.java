@@ -115,6 +115,7 @@ public class UserController implements Initializable {
         
         double total = store.checkout();
         lblCartPrice.setText("Total: $" + total);
+        lblCartPrice.setVisible(true);
         cartPane.setVisible(true);
         currentPane = "cart";  
     }
