@@ -63,7 +63,6 @@ public class MainApp extends Application {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setResizable(false);
-        dialog.setTitle("Saving...");
         dialog.setFullScreen(true);
         dialog.setFullScreenExitHint("");
 
