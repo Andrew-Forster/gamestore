@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 import andrewjf.Models.Items.Ability;
 import andrewjf.Models.Items.Armor;
-import andrewjf.Models.Items.Weapons;
+import andrewjf.Models.Items.Weapon;
 
 public class Products {
 
@@ -22,10 +22,10 @@ public class Products {
                     15, 20)
     };
 
-    Weapons[] weapons = {
-            new Weapons(generateId(), "Dagger", "A small dagger", 10.00, "2021-09-01", 5, 10, 2),
-            new Weapons(generateId(), "Sword", "A standard sword", 20.00, "2021-09-01", 10, 15, 5),
-            new Weapons(generateId(), "Greatsword", "A large two-handed sword", 30.00, "2021-09-01", 15, 20, 10)
+    Weapon[] weapons = {
+            new Weapon(generateId(), "Dagger", "A small dagger", 10.00, "2021-09-01", 5, 10, 2),
+            new Weapon(generateId(), "Sword", "A standard sword", 20.00, "2021-09-01", 10, 15, 5),
+            new Weapon(generateId(), "Greatsword", "A large two-handed sword", 30.00, "2021-09-01", 15, 20, 10)
     };
 
     Ability[] abilities = {
@@ -38,7 +38,7 @@ public class Products {
         for (Armor armor : armors) {
             products.add(armor);
         }
-        for (Weapons weapon : weapons) {
+        for (Weapon weapon : weapons) {
             products.add(weapon);
         }
         for (Ability ability : abilities) {
@@ -53,6 +53,10 @@ public class Products {
             }
         }
         return idCounter++;
+    }
+
+    public void setProducts(ArrayList<SellableProducts> products) {
+        Products.products = products;
     }
 
     public void addProduct(SellableProducts product) {

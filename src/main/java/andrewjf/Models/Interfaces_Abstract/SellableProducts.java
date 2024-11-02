@@ -1,9 +1,26 @@
 package andrewjf.Models.Interfaces_Abstract;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import andrewjf.Models.Items.Ability;
+import andrewjf.Models.Items.Armor;
+import andrewjf.Models.Items.Weapon;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+
+
+@JsonTypeInfo (use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Ability.class, name = "Ability"),
+        @JsonSubTypes.Type(value = Armor.class, name = "Armor"),
+        @JsonSubTypes.Type(value = Weapon.class, name = "Weapon")
+})
+
+
 
 public abstract class SellableProducts implements Comparable<SellableProducts> {
     int id;
@@ -74,7 +91,8 @@ public abstract class SellableProducts implements Comparable<SellableProducts> {
     public String getCreatedOn() {
         return createdOn;
     }
-
+    
+    @JsonIgnore
     public String getType() {
         return this.getClass().getSimpleName();
     }

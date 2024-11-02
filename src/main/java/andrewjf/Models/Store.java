@@ -52,6 +52,10 @@ public class Store {
         products.addProduct(product);
     }
 
+    public void setProducts(ArrayList<SellableProducts> products) {
+        this.products.setProducts(products);
+    }
+
     public void removeProduct(SellableProducts product) {
         products.removeProduct(product);
     }

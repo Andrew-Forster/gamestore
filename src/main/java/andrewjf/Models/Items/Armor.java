@@ -4,9 +4,13 @@ import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 
 
 public class Armor extends SellableProducts {
-    String type;
-    int defense;
-    int durability;
+    private String type;
+    private int defense;
+    private int durability;
+
+    public Armor() {
+        super(0, "", "", 0, "");
+    }
     
     public Armor(int id, String name, String description, double price, String createdOn, String type, int defense, int durability) {
         super(id, name, description, price, createdOn);

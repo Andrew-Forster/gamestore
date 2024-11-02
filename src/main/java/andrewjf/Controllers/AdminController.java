@@ -29,7 +29,7 @@ import andrewjf.Models.Store;
 import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 import andrewjf.Models.Items.Ability;
 import andrewjf.Models.Items.Armor;
-import andrewjf.Models.Items.Weapons;
+import andrewjf.Models.Items.Weapon;
 
 import java.sql.Date;
 
@@ -88,6 +88,7 @@ public class AdminController implements Initializable {
 
     /**
      * Redirect to the main page
+     * 
      * @param event
      * @throws IOException
      */
@@ -96,18 +97,18 @@ public class AdminController implements Initializable {
         setRoot("main", "Game Store");
     }
 
-     /**
-      * Toggles the admin menu
-      * TODO: Add animation
-      * TODO: Adjust the stack pane to take up the available space
-      */
+    /**
+     * Toggles the admin menu
+     * TODO: Add animation
+     * TODO: Adjust the stack pane to take up the available space
+     */
     @FXML
     private void toggleMenu() {
         menu.setVisible(!menu.isVisible());
         menu.setManaged(menu.isVisible());
     }
 
-    @FXML 
+    @FXML
     private void saveProducts(ActionEvent event) {
         String msg = Utils.saveToFile(store.getProducts().toArray(new SellableProducts[0]));
 
@@ -118,12 +119,25 @@ public class AdminController implements Initializable {
 
     @FXML
     private void loadProducts(ActionEvent event) {
-        // Load the products from a file
-        // store.loadProducts();
+        ArrayList<SellableProducts> products = Utils.readFromFile();
+        if (products != null) {
+            store.setProducts(products);
+            try {
+                displayProducts(null);
+                showDialog("Products loaded successfully");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                showDialog("Error loading products");
+            }
+        } else {
+            showDialog("Error loading products");
+        }
     }
 
     /**
      * Display the products in the store
+     * 
      * @param event Use 'null' to call this function from another function
      * @throws IOException
      */
@@ -155,6 +169,7 @@ public class AdminController implements Initializable {
 
     /**
      * Navigate to the add product page
+     * 
      * @param event Use 'null' to call this function from another function
      */
     @FXML
@@ -178,6 +193,7 @@ public class AdminController implements Initializable {
 
     /**
      * Update the product based on the type
+     * 
      * @param event
      * @Note For the Update Product Page
      */
@@ -204,9 +220,9 @@ public class AdminController implements Initializable {
                 prop2update.setText("Durability");
                 prop3update.setText("Weight");
 
-                prop1inputUpdate.setText(Integer.toString(((Weapons) product).getDamage()));
-                prop2inputUpdate.setText(Integer.toString(((Weapons) product).getDurability()));
-                prop3inputUpdate.setText(Integer.toString(((Weapons) product).getWeight()));
+                prop1inputUpdate.setText(Integer.toString(((Weapon) product).getDamage()));
+                prop2inputUpdate.setText(Integer.toString(((Weapon) product).getDurability()));
+                prop3inputUpdate.setText(Integer.toString(((Weapon) product).getWeight()));
                 break;
             case "Ability":
                 prop1update.setText("Type");
@@ -228,6 +244,7 @@ public class AdminController implements Initializable {
     /**
      * Search for products based on the search bar
      * and display them
+     * 
      * @param event
      */
     @FXML
@@ -248,7 +265,6 @@ public class AdminController implements Initializable {
 
     }
 
-
     @FXML
     private Label prop1;
     @FXML
@@ -258,6 +274,7 @@ public class AdminController implements Initializable {
 
     /**
      * Change the properties of the product based on the type
+     * 
      * @param event
      * @Note For the Add Product Page
      */
@@ -309,8 +326,9 @@ public class AdminController implements Initializable {
 
     @FXML
     /**
-     * Add product to store and display 
+     * Add product to store and display
      * the products again
+     * 
      * @param event
      */
     private void addProduct(ActionEvent event) {
@@ -371,7 +389,7 @@ public class AdminController implements Initializable {
                 }
 
                 // Create weapon object
-                Weapons weapon = new Weapons(id, n, d, p, date, Integer.parseInt(p1), Integer.parseInt(p2),
+                Weapon weapon = new Weapon(id, n, d, p, date, Integer.parseInt(p1), Integer.parseInt(p2),
                         Integer.parseInt(p3));
                 store.addProduct(weapon);
                 break;
@@ -425,7 +443,8 @@ public class AdminController implements Initializable {
     /**
      * Used to update the product in the store
      * Not for use inside the controller
-     * @param event 
+     * 
+     * @param event
      */
     @FXML
     private void updateProduct(ActionEvent event) {
@@ -438,11 +457,13 @@ public class AdminController implements Initializable {
         String p2 = prop2inputUpdate.getText();
         String p3 = prop3inputUpdate.getText();
 
-        addErrUpdate.setText((p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) ? "Properties cannot be empty" : addErrUpdate.getText());
+        addErrUpdate.setText(
+                (p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) ? "Properties cannot be empty" : addErrUpdate.getText());
         addErrUpdate.setText(priceUpdate.getText().isEmpty() ? "Price cannot be empty" : addErrUpdate.getText());
         addErrUpdate.setText(d.isEmpty() ? "Description cannot be empty" : addErrUpdate.getText());
         addErrUpdate.setText(n.isEmpty() ? "Name cannot be empty" : addErrUpdate.getText());
-        if (n.isEmpty() || d.isEmpty() || priceUpdate.getText().isEmpty() || p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) {
+        if (n.isEmpty() || d.isEmpty() || priceUpdate.getText().isEmpty() || p1.isEmpty() || p2.isEmpty()
+                || p3.isEmpty()) {
             addErrUpdate.setVisible(true);
 
             return;
@@ -472,7 +493,8 @@ public class AdminController implements Initializable {
                 }
 
                 // Create armor object
-                Armor armor = new Armor(product.getId(), n, d, p, product.getCreatedOn(), p1, Integer.parseInt(p2), Integer.parseInt(p3));
+                Armor armor = new Armor(product.getId(), n, d, p, product.getCreatedOn(), p1, Integer.parseInt(p2),
+                        Integer.parseInt(p3));
                 store.updateProduct(armor);
                 break;
             case "Weapon":
@@ -486,7 +508,8 @@ public class AdminController implements Initializable {
                 }
 
                 // Create weapon object
-                Weapons weapon = new Weapons(product.getId(), n, d, p, product.getCreatedOn(), Integer.parseInt(p1), Integer.parseInt(p2),
+                Weapon weapon = new Weapon(product.getId(), n, d, p, product.getCreatedOn(), Integer.parseInt(p1),
+                        Integer.parseInt(p2),
                         Integer.parseInt(p3));
                 store.updateProduct(weapon);
                 break;
@@ -500,7 +523,8 @@ public class AdminController implements Initializable {
                 }
 
                 // Create ability object
-                Ability ability = new Ability(product.getId(), n, d, p, product.getCreatedOn(), p1, Integer.parseInt(p2),
+                Ability ability = new Ability(product.getId(), n, d, p, product.getCreatedOn(), p1,
+                        Integer.parseInt(p2),
                         Integer.parseInt(p3));
                 store.updateProduct(ability);
                 break;
@@ -528,6 +552,7 @@ public class AdminController implements Initializable {
 
     /**
      * Cancel the update and clear the stack pane
+     * 
      * @param event
      * @throws IOException
      */
@@ -539,15 +564,17 @@ public class AdminController implements Initializable {
 
     /**
      * Opens the confirm dialog to delete the product
+     * 
      * @param event
      */
     @FXML
     private void deleteProduct(ActionEvent event) {
         confirmDialog.setVisible(true);
     }
-    
+
     /**
      * Affirms the deletion of the product
+     * 
      * @param event
      * @throws IOException
      */
@@ -568,6 +595,7 @@ public class AdminController implements Initializable {
 
     /**
      * Cancels the deletion of the product
+     * 
      * @param event
      */
     @FXML
@@ -578,10 +606,10 @@ public class AdminController implements Initializable {
     @FXML
     private Label productInfo;
 
-
     /**
      * View the product details
      * Opens the product pane
+     * 
      * @param product
      */
     private void viewProduct(SellableProducts product) {
@@ -594,8 +622,8 @@ public class AdminController implements Initializable {
             Armor armor = (Armor) product;
             info += "\nType: " + armor.getType() + "\nDefense: " + armor.getDefense() + "\nDurability: "
                     + armor.getDurability();
-        } else if (product instanceof Weapons) {
-            Weapons weapon = (Weapons) product;
+        } else if (product instanceof Weapon) {
+            Weapon weapon = (Weapon) product;
             info += "\nDamage: " + weapon.getDamage() + "\nDurability: " + weapon.getDurability() + "\nWeight: "
                     + weapon.getWeight();
         } else if (product instanceof Ability) {
@@ -611,6 +639,7 @@ public class AdminController implements Initializable {
 
     /**
      * Create a card for the product
+     * 
      * @param product
      * @return
      */
@@ -637,6 +666,7 @@ public class AdminController implements Initializable {
 
     /**
      * Clear the stack pane
+     * 
      * @Note: Used to clear the stack pane
      */
     private void clearStackPane() {
@@ -645,9 +675,9 @@ public class AdminController implements Initializable {
         }
     }
 
-
     /**
      * Show a dialog with a message
+     * 
      * @param msg
      */
     private void showDialog(String msg) {

@@ -95,9 +95,44 @@ public class MainApp extends Application {
                 ArrayList<SellableProducts> products = Store.getInstance().getProducts();
                 String msg = Utils.saveToFile(products.toArray(new SellableProducts[0]));
                 System.out.println(msg);
-            } finally {
-                javafx.application.Platform.runLater(dialog::close);
+                Thread.sleep(1500);
+
+                if (msg.equals("File Saved!")) {
+                    javafx.application.Platform.runLater(() -> {
+                        dialog.close();
+                        stage.close();
+                    });
+                } else {
+                    // File not saved, show warning to use, don't close
+                    warningDialog(msg);
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }).start();
+    }
+
+    public static void warningDialog(String message) {
+        // Create a new stage for the dialog
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setResizable(false);
+        dialog.setTitle("Warning");
+        dialog.setFullScreen(true);
+        dialog.setFullScreenExitHint("");
+
+        // Hide x button
+        dialog.initStyle(javafx.stage.StageStyle.UNDECORATED);
+
+        // Make dialog transparent
+        dialog.initStyle(javafx.stage.StageStyle.TRANSPARENT);
+        
+
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setProgress(-1.0);
+        progressIndicator.setStyle("-fx-progress-color: #fc3737;");
+        progressIndicator.setMaxSize(35, 35);
     }
 }

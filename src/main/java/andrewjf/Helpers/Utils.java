@@ -88,6 +88,7 @@ public class Utils {
 
             sc.close();
         } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + "\n\n");
             e.printStackTrace();
         }
 

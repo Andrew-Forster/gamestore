@@ -29,7 +29,7 @@ import andrewjf.Models.Store;
 import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 import andrewjf.Models.Items.Ability;
 import andrewjf.Models.Items.Armor;
-import andrewjf.Models.Items.Weapons;
+import andrewjf.Models.Items.Weapon;
 
 import static andrewjf.MainApp.setRoot;
 
@@ -242,8 +242,8 @@ public class UserController implements Initializable {
             Armor armor = (Armor) product;
             info += "\nType: " + armor.getType() + "\nDefense: " + armor.getDefense() + "\nDurability: "
                     + armor.getDurability();
-        } else if (product instanceof Weapons) {
-            Weapons weapon = (Weapons) product;
+        } else if (product instanceof Weapon) {
+            Weapon weapon = (Weapon) product;
             info += "\nDamage: " + weapon.getDamage() + "\nDurability: " + weapon.getDurability() + "\nWeight: "
                     + weapon.getWeight();
         } else if (product instanceof Ability) {
