@@ -66,7 +66,6 @@ public class Utils {
             return "File Saved!";
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage() + "\n\n");
-            e.printStackTrace();
         }
 
         return "Failed to save to file";
@@ -89,7 +88,6 @@ public class Utils {
             sc.close();
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage() + "\n\n");
-            e.printStackTrace();
         }
 
         return products;

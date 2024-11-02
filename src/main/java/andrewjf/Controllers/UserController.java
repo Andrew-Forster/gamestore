@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -101,23 +102,23 @@ public class UserController implements Initializable {
         menu.setManaged(menu.isVisible());
     }
 
-
     @FXML
     private Label lblCartPrice;
 
     /**
      * Checkout the cart and display the total cart price
+     * 
      * @param event Use 'null' to call this function from another function
      * @throws IOException
      */
     @FXML
     private void checkout(ActionEvent event) throws IOException {
-        
+
         double total = store.checkout();
         lblCartPrice.setText("Total: $" + total);
         lblCartPrice.setVisible(true);
         cartPane.setVisible(true);
-        currentPane = "cart";  
+        currentPane = "cart";
     }
 
     /**
@@ -131,22 +132,20 @@ public class UserController implements Initializable {
         clearStackPane();
         ArrayList<SellableProducts> items = store.getProducts();
         GridPane productCont = new GridPane();
+
         for (int i = 0; i < items.size(); i++) {
             VBox card = createProductCard(items.get(i));
             productCont.add(card, i % 3, i / 3);
         }
 
-        for (int i = 0; i < productsPane.getChildren().size(); i++) {
-            if (productsPane.getChildren().get(i) instanceof GridPane) {
-                productsPane.getChildren().remove(i);
-            }
-        }
+        ScrollPane scrollPane = new ScrollPane(productCont);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(400);
+        scrollPane.getStyleClass().add("scroll-pane");
 
-        productsPane.getChildren().add(productCont);
-        productCont.setLayoutY(50);
-        productCont.setLayoutX(10);
+        productsPane.getChildren().clear();
+        productsPane.getChildren().add(scrollPane);
         productsPane.setVisible(true);
-        currentPane = "products";
 
         if (search.getText().length() > 0) {
             searchProducts(null);
@@ -165,25 +164,25 @@ public class UserController implements Initializable {
         clearStackPane();
         ArrayList<SellableProducts> items = store.getCart();
         GridPane productCont = new GridPane();
+
         for (int i = 0; i < items.size(); i++) {
             VBox card = createProductCard(items.get(i));
             productCont.add(card, i % 3, i / 3);
         }
 
-        for (int i = 0; i < cartPane.getChildren().size(); i++) {
-            if (cartPane.getChildren().get(i) instanceof GridPane) {
-                cartPane.getChildren().remove(i);
-            }
-        }
+        ScrollPane scrollPane = new ScrollPane(productCont);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(400);
+        scrollPane.getStyleClass().add("scroll-pane");
 
-        cartPane.getChildren().add(productCont);
-        productCont.setLayoutY(50);
-        productCont.setLayoutX(10);
-        cartPane.setVisible(true);
+        productsPane.getChildren().clear();
+        productsPane.getChildren().add(scrollPane);
+        productsPane.setVisible(true);
 
         if (items.size() == 0) {
             Label emptyCart = new Label("Your cart is empty");
             emptyCart.setStyle("-fx-font-size: 2em; -fx-text-fill: white;");
+            emptyCart.paddingProperty().setValue(new javafx.geometry.Insets(10, 10, 10, 10));
             productCont.add(emptyCart, 0, 0);
         }
         currentPane = "cart";
@@ -202,16 +201,20 @@ public class UserController implements Initializable {
             return;
         } else {
             ArrayList<SellableProducts> items = store.searchProducts(search.getText());
-
             GridPane productCont = new GridPane();
+
             for (int i = 0; i < items.size(); i++) {
                 VBox card = createProductCard(items.get(i));
                 productCont.add(card, i % 3, i / 3);
             }
-            // Remove previous GridPane
-            productsPane.getChildren().remove(1);
-            productsPane.getChildren().add(productCont);
-            productCont.setLayoutY(50);
+
+            ScrollPane scrollPane = new ScrollPane(productCont);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setPrefHeight(400);
+            scrollPane.getStyleClass().add("scroll-pane");
+
+            productsPane.getChildren().clear();
+            productsPane.getChildren().add(scrollPane);
             productsPane.setVisible(true);
         }
 
@@ -254,7 +257,7 @@ public class UserController implements Initializable {
 
         if (store.getCart().contains(product)) {
             AnchorPane.setRightAnchor(btnAddToCart, 179.2);
-            
+
             btnRemFromCart.setVisible(true);
         } else {
             AnchorPane.setRightAnchor(btnAddToCart, 14.2);
@@ -310,9 +313,6 @@ public class UserController implements Initializable {
         }));
         timeline.play();
     }
-
-
-
 
     /**
      * Create a card for the product

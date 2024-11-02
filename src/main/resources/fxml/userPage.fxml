@@ -16,20 +16,20 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="pane" prefHeight="400.0" prefWidth="640.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="andrewjf.Controllers.UserController">
-    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+<VBox id="pane" prefHeight="400.0" prefWidth="690.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="andrewjf.Controllers.UserController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="674.0" VBox.vgrow="ALWAYS">
          <top>
             <VBox prefHeight="50.0" prefWidth="702.0" BorderPane.alignment="CENTER">
                <children>
-                      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="702.0" VBox.vgrow="ALWAYS">
-                          <children>
-                              <JFXHamburger onMouseClicked="#toggleMenu" prefHeight="48.0" prefWidth="49.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="702.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <JFXHamburger onMouseClicked="#toggleMenu" prefHeight="48.0" prefWidth="49.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXHamburger>
-                              <JFXButton onAction="#gotoMain" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #FF4B2B; -fx-background-insets: 5px;" text="Home" textFill="#fff4f4" HBox.hgrow="ALWAYS">
+                        <JFXButton onAction="#gotoMain" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #FF4B2B; -fx-background-insets: 5px;" text="Home" textFill="#fff4f4" HBox.hgrow="ALWAYS">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -48,8 +48,8 @@
                               </TextField>
                            </children>
                         </HBox>
-                          </children>
-                      </HBox>
+                     </children>
+                  </HBox>
                   <HBox prefHeight="0.0" prefWidth="702.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Pane fx:id="resizable" prefHeight="0.0" prefWidth="691.0" HBox.hgrow="ALWAYS">
@@ -64,12 +64,12 @@
          </top>
          <left>
 
-                            <!-- Anchor the VBox in the center of the AnchorPane -->
-                <VBox fx:id="menu" prefHeight="343.0" prefWidth="210.0" style="-fx-background-color: #0B0F33;" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label prefHeight="39.0" prefWidth="213.0" style="-fx-label-padding: 5;" text="Pick an action below:" textFill="#ffe4f4" />
-                        <Line endX="107.95953369140625" endY="-3.715356115208124E-6" startX="-100.0" stroke="WHITE" />
-                        <JFXButton onAction="#displayProducts" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="🏬  Store" textFill="#fff4f4">
+            <!-- Anchor the VBox in the center of the AnchorPane -->
+            <VBox fx:id="menu" prefHeight="343.0" prefWidth="210.0" style="-fx-background-color: #0B0F33;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="213.0" style="-fx-label-padding: 5;" text="Pick an action below:" textFill="#ffe4f4" />
+                  <Line endX="107.95953369140625" endY="-3.715356115208124E-6" startX="-100.0" stroke="WHITE" />
+                  <JFXButton onAction="#displayProducts" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="🏬  Store" textFill="#fff4f4">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -77,16 +77,16 @@
                         <Insets />
                      </VBox.margin>
                   </JFXButton>
-                        <JFXButton onAction="#displayCart" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="🛒  View Cart" textFill="#fff4f4">
+                  <JFXButton onAction="#displayCart" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="🛒  View Cart" textFill="#fff4f4">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                    </children>
-                </VBox>
+               </children>
+            </VBox>
          </left>
          <center>
-                <StackPane fx:id="adminCont" prefHeight="376.0" prefWidth="477.0" BorderPane.alignment="CENTER">
+            <StackPane fx:id="adminCont" prefHeight="376.0" prefWidth="477.0" BorderPane.alignment="CENTER">
                <children>
                   <AnchorPane fx:id="productsPane" prefHeight="200.0" prefWidth="610.0" visible="false">
                      <children>
@@ -107,7 +107,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                              <JFXButton layoutX="268.0" layoutY="304.0" onAction="#checkout" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #1994f2; -fx-background-insets: 0px;" text="💳  Checkout" textFill="#fff4f4" AnchorPane.bottomAnchor="14.399999999999977" AnchorPane.rightAnchor="13.600000000000023">
+                        <JFXButton layoutX="268.0" layoutY="304.0" onAction="#checkout" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #1994f2; -fx-background-insets: 0px;" text="💳  Checkout" textFill="#fff4f4" AnchorPane.bottomAnchor="14.399999999999977" AnchorPane.rightAnchor="13.600000000000023">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -167,5 +167,5 @@
             </StackPane>
          </center>
       </BorderPane>
-    </children>
+   </children>
 </VBox>

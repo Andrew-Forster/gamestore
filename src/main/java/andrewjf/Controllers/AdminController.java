@@ -2,16 +2,18 @@ package andrewjf.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import javafx.event.ActionEvent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,6 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 
 import andrewjf.Helpers.Utils;
@@ -62,6 +65,10 @@ public class AdminController implements Initializable {
     private TextField search;
     @FXML
     private ComboBox<String> itemType;
+    @FXML
+    private Pane resizable;
+    @FXML
+    private Line line;
 
     /**
      * Initializes the controller class.
@@ -70,7 +77,7 @@ public class AdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         clearStackPane();
-
+        line.endXProperty().bind(resizable.widthProperty());
         try {
             displayProducts(null);
         } catch (IOException e) {
@@ -146,25 +153,24 @@ public class AdminController implements Initializable {
         clearStackPane();
         ArrayList<SellableProducts> items = store.getProducts();
         GridPane productCont = new GridPane();
+
         for (int i = 0; i < items.size(); i++) {
             VBox card = createProductCard(items.get(i));
             productCont.add(card, i % 3, i / 3);
         }
 
-        for (int i = 0; i < productsPane.getChildren().size(); i++) {
-            if (productsPane.getChildren().get(i) instanceof GridPane) {
-                productsPane.getChildren().remove(i);
-            }
-        }
+        ScrollPane scrollPane = new ScrollPane(productCont);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(400);
+        scrollPane.getStyleClass().add("scroll-pane");
 
-        productsPane.getChildren().add(productCont);
-        productCont.setLayoutY(50);
+        productsPane.getChildren().clear();
+        productsPane.getChildren().add(scrollPane);
         productsPane.setVisible(true);
 
         if (search.getText().length() > 0) {
             searchProducts(null);
         }
-
     }
 
     /**
@@ -253,14 +259,19 @@ public class AdminController implements Initializable {
         ArrayList<SellableProducts> items = store.searchProducts(search.getText());
 
         GridPane productCont = new GridPane();
+
         for (int i = 0; i < items.size(); i++) {
             VBox card = createProductCard(items.get(i));
             productCont.add(card, i % 3, i / 3);
         }
-        // Remove previous GridPane
-        productsPane.getChildren().remove(1);
-        productsPane.getChildren().add(productCont);
-        productCont.setLayoutY(50);
+
+        ScrollPane scrollPane = new ScrollPane(productCont);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(400);
+        scrollPane.getStyleClass().add("scroll-pane");
+
+        productsPane.getChildren().clear();
+        productsPane.getChildren().add(scrollPane);
         productsPane.setVisible(true);
 
     }
@@ -645,16 +656,19 @@ public class AdminController implements Initializable {
      */
     private VBox createProductCard(SellableProducts product) {
         VBox card = new VBox();
-        card.setStyle("-fx-border-color: gray; -fx-padding: 10; -fx-alignment: center;");
+        card.setStyle("-fx-border-color: #c5d3dd; -fx-padding: 10; -fx-alignment: center;");
+        card.setSpacing(10);
+        card.setPrefSize(150, 125);
 
         // Product name and price
         Label nameLabel = new Label(product.getName());
         Label priceLabel = new Label("$" + product.getPrice());
-        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: black;");
-        priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: black;");
+        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: #fff4f4;");
+        priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: #fff4f4;");
 
         // Edit button
-        Button editButton = new Button("View");
+        JFXButton editButton = new JFXButton("View");
+        editButton.setStyle("-fx-background-color: #13598b; -fx-text-fill: white;");
         editButton.setOnAction(event -> {
             viewProduct(product);
         });

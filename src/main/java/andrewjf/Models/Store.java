@@ -24,9 +24,8 @@ public class Store {
         if (saved == null) {
             return;
         }
-        for (SellableProducts product : saved) {
-            this.products.addProduct(product);
-        }
+
+        products.setProducts(saved);
     }
     public static Store getInstance() {
         if (instance == null) {
