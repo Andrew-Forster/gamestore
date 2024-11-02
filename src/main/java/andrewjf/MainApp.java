@@ -4,9 +4,17 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import andrewjf.Helpers.Utils;
+import andrewjf.Models.Store;
+import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 
 // Dominant (60%): Dark Navy Blue #0B0F33
 // Accent (10%): Cyan Blue #1994f2
@@ -17,7 +25,7 @@ public class MainApp extends Application {
     private static Stage stage;
 
     @Override
-    public void start(@SuppressWarnings("exports") Stage s) throws IOException {
+    public void start(Stage s) throws IOException {
         stage=s;
         setRoot("main","Game Store");
     }
@@ -32,6 +40,7 @@ public class MainApp extends Application {
         stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest( event -> showSavingDialog());
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
@@ -44,4 +53,51 @@ public class MainApp extends Application {
         launch(args);
     }
 
+
+    private static void showSavingDialog() {
+        // Create a new stage for the dialog
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setResizable(false);
+        dialog.setTitle("Saving...");
+        dialog.setFullScreen(true);
+        dialog.setFullScreenExitHint("");
+
+        // Hide x button
+        dialog.initStyle(javafx.stage.StageStyle.UNDECORATED);
+
+        // Make dialog transparent
+        dialog.initStyle(javafx.stage.StageStyle.TRANSPARENT);
+        
+
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setProgress(-1.0);
+        progressIndicator.setStyle("-fx-progress-color: #1994f2;");
+        progressIndicator.setMaxSize(35, 35);
+
+
+        StackPane dialogPane = new StackPane();
+        dialogPane.setStyle("-fx-background-color: transparent;");
+        dialogPane.getChildren().add(progressIndicator);
+
+        Scene dialogScene = new Scene(dialogPane, 120, 70);
+        dialogScene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        dialog.setScene(dialogScene);
+        dialog.setOnCloseRequest(event -> {
+            // Consume the event to prevent closing
+            event.consume();
+        });
+        dialog.show();
+
+
+        new Thread(() -> {
+            try {
+                ArrayList<SellableProducts> products = Store.getInstance().getProducts();
+                String msg = Utils.saveToFile(products.toArray(new SellableProducts[0]));
+                System.out.println(msg);
+            } finally {
+                javafx.application.Platform.runLater(dialog::close);
+            }
+        }).start();
+    }
 }

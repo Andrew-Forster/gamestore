@@ -40,11 +40,11 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></JFXButton>
-                        <JFXButton prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="Save Products" textFill="#fff4f4">
+                        <JFXButton onAction="#saveProducts" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="Save Products" textFill="#fff4f4">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></JFXButton>
-                        <JFXButton prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="Load Products" textFill="#fff4f4">
+                        <JFXButton onAction="#loadProducts" prefHeight="40.0" prefWidth="216.0" style="-fx-background-color: #0B0F33; -fx-background-insets: 0px;" text="Load Products" textFill="#fff4f4">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></JFXButton>

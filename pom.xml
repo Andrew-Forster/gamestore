@@ -17,6 +17,26 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.18.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.18.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.18.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
@@ -67,11 +87,11 @@
                     <execution>
                         <phase>package</phase>
                         <configuration>
-                            <tasks>
-                                <echo file="${project.build.directory}/runme.bat">start
-                                    jlink-image\bin\javaw -jar
-                                    modules\${project.artifactId}-${project.version}.jar</echo>
-                            </tasks>
+                            <target>
+                                <echo file="${project.build.directory}/runme.bat">
+                                    start jlink-image\bin\javaw -jar modules\${project.artifactId}-${project.version}.jar
+                                </echo>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>

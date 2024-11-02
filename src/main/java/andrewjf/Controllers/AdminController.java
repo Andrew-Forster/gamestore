@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXDialog;
 
+import andrewjf.Helpers.Utils;
 import andrewjf.Models.Store;
 import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 import andrewjf.Models.Items.Ability;
@@ -104,6 +105,21 @@ public class AdminController implements Initializable {
     private void toggleMenu() {
         menu.setVisible(!menu.isVisible());
         menu.setManaged(menu.isVisible());
+    }
+
+    @FXML 
+    private void saveProducts(ActionEvent event) {
+        String msg = Utils.saveToFile(store.getProducts().toArray(new SellableProducts[0]));
+
+        // Create dialog saying saved!
+
+        showDialog(msg);
+    }
+
+    @FXML
+    private void loadProducts(ActionEvent event) {
+        // Load the products from a file
+        // store.loadProducts();
     }
 
     /**
@@ -629,4 +645,16 @@ public class AdminController implements Initializable {
         }
     }
 
+
+    /**
+     * Show a dialog with a message
+     * @param msg
+     */
+    private void showDialog(String msg) {
+        JFXDialog dialog = new JFXDialog();
+        dialog.setDialogContainer(adminCont);
+        dialog.setContent(new Label(msg));
+        dialog.show();
+
+    }
 }

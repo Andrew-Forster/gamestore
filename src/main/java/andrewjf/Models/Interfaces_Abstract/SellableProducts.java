@@ -1,5 +1,7 @@
 package andrewjf.Models.Interfaces_Abstract;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
@@ -76,7 +78,7 @@ public abstract class SellableProducts implements Comparable<SellableProducts> {
     public String getType() {
         return this.getClass().getSimpleName();
     }
-
+    @JsonIgnore
     public Node getDisplay() {
         return new Label(getName());
     }
