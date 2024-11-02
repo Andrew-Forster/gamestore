@@ -54,6 +54,10 @@ public class MainApp extends Application {
     }
 
 
+    /**
+     * Show a dialog to save the file
+     * 
+     */
     private static void showSavingDialog() {
         // Create a new stage for the dialog
         Stage dialog = new Stage();

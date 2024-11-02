@@ -47,6 +47,12 @@ public class Utils {
         return chars;
     }
 
+    /**
+     * Save products to a file
+     * 
+     * @param p
+     * @return
+     */
     public static String saveToFile(SellableProducts... p) {
 
         PrintWriter pw;
@@ -71,6 +77,11 @@ public class Utils {
         return "Failed to save to file";
     }
 
+    /**
+     * Read products from a file
+     * 
+     * @return
+     */
     public static ArrayList<SellableProducts> readFromFile() {
         ArrayList<SellableProducts> products = new ArrayList<SellableProducts>();
 
