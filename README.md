@@ -45,9 +45,12 @@ A JavaFX-based application that simulates an online game store, offering both **
     
 **[View this Iteration here](https://github.com/Andrew-Forster/gamestore/releases/tag/v3.0.0)**
 
-### Milestone 4: Save and Load Data using a Text File
-- Save store data to a text file in **JSON format**.
-- Use **Maven** to incorporate the **Jackson library** for data serialization.
+### ✔️ Milestone 4: Save and Load Data using a Text File
+- Store data now saves to a text file in **JSON format** on program exit.
+- Data is loaded on reading the text file.
+- Used **Maven** to incorporate the **Jackson library** for data serialization.
+
+**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/releases/tag/v4.0.0)**
 
 ### Milestone 5: Sorting Data
 - Add sorting features to inventory and cart:

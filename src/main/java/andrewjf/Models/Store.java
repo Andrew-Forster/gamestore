@@ -4,6 +4,7 @@ import static andrewjf.Models.Products.generateId;
 
 import java.util.ArrayList;
 
+import andrewjf.Helpers.Utils;
 import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 
 // import andrewf.Core.Interfaces_Abstract.SellableProducts;
@@ -15,7 +16,16 @@ public class Store {
 
     public Store() {
         products = new Products();
-        cart = new Cart(); // Implement in Milestone 3
+        cart = new Cart(); 
+
+        ArrayList<SellableProducts> saved = new ArrayList<>();
+        saved = Utils.readFromFile();
+
+        if (saved == null) {
+            return;
+        }
+
+        products.setProducts(saved);
     }
     public static Store getInstance() {
         if (instance == null) {
@@ -39,6 +49,10 @@ public class Store {
 
     public void addProduct(SellableProducts product) {
         products.addProduct(product);
+    }
+
+    public void setProducts(ArrayList<SellableProducts> products) {
+        this.products.setProducts(products);
     }
 
     public void removeProduct(SellableProducts product) {

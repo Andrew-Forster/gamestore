@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="maven-antrun-" default="main">
+  <target name="main">
+    <echo file="C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target/runme.bat">start jlink-image\bin\javaw -jar modules\gamestore-1.0-SNAPSHOT.jar</echo>
+  </target>
+</project>

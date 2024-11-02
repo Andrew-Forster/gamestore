@@ -2,16 +2,18 @@ package andrewjf.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import javafx.event.ActionEvent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,13 +24,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 
+import andrewjf.Helpers.Utils;
 import andrewjf.Models.Store;
 import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 import andrewjf.Models.Items.Ability;
 import andrewjf.Models.Items.Armor;
-import andrewjf.Models.Items.Weapons;
+import andrewjf.Models.Items.Weapon;
 
 import java.sql.Date;
 
@@ -61,6 +65,10 @@ public class AdminController implements Initializable {
     private TextField search;
     @FXML
     private ComboBox<String> itemType;
+    @FXML
+    private Pane resizable;
+    @FXML
+    private Line line;
 
     /**
      * Initializes the controller class.
@@ -69,7 +77,7 @@ public class AdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         clearStackPane();
-
+        line.endXProperty().bind(resizable.widthProperty());
         try {
             displayProducts(null);
         } catch (IOException e) {
@@ -87,6 +95,7 @@ public class AdminController implements Initializable {
 
     /**
      * Redirect to the main page
+     * 
      * @param event
      * @throws IOException
      */
@@ -95,19 +104,47 @@ public class AdminController implements Initializable {
         setRoot("main", "Game Store");
     }
 
-     /**
-      * Toggles the admin menu
-      * TODO: Add animation
-      * TODO: Adjust the stack pane to take up the available space
-      */
+    /**
+     * Toggles the admin menu
+     * TODO: Add animation
+     * TODO: Adjust the stack pane to take up the available space
+     */
     @FXML
     private void toggleMenu() {
         menu.setVisible(!menu.isVisible());
         menu.setManaged(menu.isVisible());
     }
 
+    @FXML
+    private void saveProducts(ActionEvent event) {
+        String msg = Utils.saveToFile(store.getProducts().toArray(new SellableProducts[0]));
+
+        // Create dialog saying saved!
+
+        showDialog(msg);
+    }
+
+    @FXML
+    private void loadProducts(ActionEvent event) {
+        ArrayList<SellableProducts> products = Utils.readFromFile();
+        if (products != null) {
+            store.setProducts(products);
+            try {
+                displayProducts(null);
+                showDialog("Products loaded successfully");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                showDialog("Error loading products");
+            }
+        } else {
+            showDialog("Error loading products");
+        }
+    }
+
     /**
      * Display the products in the store
+     * 
      * @param event Use 'null' to call this function from another function
      * @throws IOException
      */
@@ -116,29 +153,29 @@ public class AdminController implements Initializable {
         clearStackPane();
         ArrayList<SellableProducts> items = store.getProducts();
         GridPane productCont = new GridPane();
+
         for (int i = 0; i < items.size(); i++) {
             VBox card = createProductCard(items.get(i));
             productCont.add(card, i % 3, i / 3);
         }
 
-        for (int i = 0; i < productsPane.getChildren().size(); i++) {
-            if (productsPane.getChildren().get(i) instanceof GridPane) {
-                productsPane.getChildren().remove(i);
-            }
-        }
+        ScrollPane scrollPane = new ScrollPane(productCont);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(400);
+        scrollPane.getStyleClass().add("scroll-pane");
 
-        productsPane.getChildren().add(productCont);
-        productCont.setLayoutY(50);
+        productsPane.getChildren().clear();
+        productsPane.getChildren().add(scrollPane);
         productsPane.setVisible(true);
 
         if (search.getText().length() > 0) {
             searchProducts(null);
         }
-
     }
 
     /**
      * Navigate to the add product page
+     * 
      * @param event Use 'null' to call this function from another function
      */
     @FXML
@@ -162,6 +199,7 @@ public class AdminController implements Initializable {
 
     /**
      * Update the product based on the type
+     * 
      * @param event
      * @Note For the Update Product Page
      */
@@ -188,9 +226,9 @@ public class AdminController implements Initializable {
                 prop2update.setText("Durability");
                 prop3update.setText("Weight");
 
-                prop1inputUpdate.setText(Integer.toString(((Weapons) product).getDamage()));
-                prop2inputUpdate.setText(Integer.toString(((Weapons) product).getDurability()));
-                prop3inputUpdate.setText(Integer.toString(((Weapons) product).getWeight()));
+                prop1inputUpdate.setText(Integer.toString(((Weapon) product).getDamage()));
+                prop2inputUpdate.setText(Integer.toString(((Weapon) product).getDurability()));
+                prop3inputUpdate.setText(Integer.toString(((Weapon) product).getWeight()));
                 break;
             case "Ability":
                 prop1update.setText("Type");
@@ -212,6 +250,7 @@ public class AdminController implements Initializable {
     /**
      * Search for products based on the search bar
      * and display them
+     * 
      * @param event
      */
     @FXML
@@ -220,18 +259,22 @@ public class AdminController implements Initializable {
         ArrayList<SellableProducts> items = store.searchProducts(search.getText());
 
         GridPane productCont = new GridPane();
+
         for (int i = 0; i < items.size(); i++) {
             VBox card = createProductCard(items.get(i));
             productCont.add(card, i % 3, i / 3);
         }
-        // Remove previous GridPane
-        productsPane.getChildren().remove(1);
-        productsPane.getChildren().add(productCont);
-        productCont.setLayoutY(50);
+
+        ScrollPane scrollPane = new ScrollPane(productCont);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(400);
+        scrollPane.getStyleClass().add("scroll-pane");
+
+        productsPane.getChildren().clear();
+        productsPane.getChildren().add(scrollPane);
         productsPane.setVisible(true);
 
     }
-
 
     @FXML
     private Label prop1;
@@ -242,6 +285,7 @@ public class AdminController implements Initializable {
 
     /**
      * Change the properties of the product based on the type
+     * 
      * @param event
      * @Note For the Add Product Page
      */
@@ -293,8 +337,9 @@ public class AdminController implements Initializable {
 
     @FXML
     /**
-     * Add product to store and display 
+     * Add product to store and display
      * the products again
+     * 
      * @param event
      */
     private void addProduct(ActionEvent event) {
@@ -355,7 +400,7 @@ public class AdminController implements Initializable {
                 }
 
                 // Create weapon object
-                Weapons weapon = new Weapons(id, n, d, p, date, Integer.parseInt(p1), Integer.parseInt(p2),
+                Weapon weapon = new Weapon(id, n, d, p, date, Integer.parseInt(p1), Integer.parseInt(p2),
                         Integer.parseInt(p3));
                 store.addProduct(weapon);
                 break;
@@ -409,7 +454,8 @@ public class AdminController implements Initializable {
     /**
      * Used to update the product in the store
      * Not for use inside the controller
-     * @param event 
+     * 
+     * @param event
      */
     @FXML
     private void updateProduct(ActionEvent event) {
@@ -422,11 +468,13 @@ public class AdminController implements Initializable {
         String p2 = prop2inputUpdate.getText();
         String p3 = prop3inputUpdate.getText();
 
-        addErrUpdate.setText((p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) ? "Properties cannot be empty" : addErrUpdate.getText());
+        addErrUpdate.setText(
+                (p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) ? "Properties cannot be empty" : addErrUpdate.getText());
         addErrUpdate.setText(priceUpdate.getText().isEmpty() ? "Price cannot be empty" : addErrUpdate.getText());
         addErrUpdate.setText(d.isEmpty() ? "Description cannot be empty" : addErrUpdate.getText());
         addErrUpdate.setText(n.isEmpty() ? "Name cannot be empty" : addErrUpdate.getText());
-        if (n.isEmpty() || d.isEmpty() || priceUpdate.getText().isEmpty() || p1.isEmpty() || p2.isEmpty() || p3.isEmpty()) {
+        if (n.isEmpty() || d.isEmpty() || priceUpdate.getText().isEmpty() || p1.isEmpty() || p2.isEmpty()
+                || p3.isEmpty()) {
             addErrUpdate.setVisible(true);
 
             return;
@@ -456,7 +504,8 @@ public class AdminController implements Initializable {
                 }
 
                 // Create armor object
-                Armor armor = new Armor(product.getId(), n, d, p, product.getCreatedOn(), p1, Integer.parseInt(p2), Integer.parseInt(p3));
+                Armor armor = new Armor(product.getId(), n, d, p, product.getCreatedOn(), p1, Integer.parseInt(p2),
+                        Integer.parseInt(p3));
                 store.updateProduct(armor);
                 break;
             case "Weapon":
@@ -470,7 +519,8 @@ public class AdminController implements Initializable {
                 }
 
                 // Create weapon object
-                Weapons weapon = new Weapons(product.getId(), n, d, p, product.getCreatedOn(), Integer.parseInt(p1), Integer.parseInt(p2),
+                Weapon weapon = new Weapon(product.getId(), n, d, p, product.getCreatedOn(), Integer.parseInt(p1),
+                        Integer.parseInt(p2),
                         Integer.parseInt(p3));
                 store.updateProduct(weapon);
                 break;
@@ -484,7 +534,8 @@ public class AdminController implements Initializable {
                 }
 
                 // Create ability object
-                Ability ability = new Ability(product.getId(), n, d, p, product.getCreatedOn(), p1, Integer.parseInt(p2),
+                Ability ability = new Ability(product.getId(), n, d, p, product.getCreatedOn(), p1,
+                        Integer.parseInt(p2),
                         Integer.parseInt(p3));
                 store.updateProduct(ability);
                 break;
@@ -512,6 +563,7 @@ public class AdminController implements Initializable {
 
     /**
      * Cancel the update and clear the stack pane
+     * 
      * @param event
      * @throws IOException
      */
@@ -523,15 +575,17 @@ public class AdminController implements Initializable {
 
     /**
      * Opens the confirm dialog to delete the product
+     * 
      * @param event
      */
     @FXML
     private void deleteProduct(ActionEvent event) {
         confirmDialog.setVisible(true);
     }
-    
+
     /**
      * Affirms the deletion of the product
+     * 
      * @param event
      * @throws IOException
      */
@@ -552,6 +606,7 @@ public class AdminController implements Initializable {
 
     /**
      * Cancels the deletion of the product
+     * 
      * @param event
      */
     @FXML
@@ -562,10 +617,10 @@ public class AdminController implements Initializable {
     @FXML
     private Label productInfo;
 
-
     /**
      * View the product details
      * Opens the product pane
+     * 
      * @param product
      */
     private void viewProduct(SellableProducts product) {
@@ -578,8 +633,8 @@ public class AdminController implements Initializable {
             Armor armor = (Armor) product;
             info += "\nType: " + armor.getType() + "\nDefense: " + armor.getDefense() + "\nDurability: "
                     + armor.getDurability();
-        } else if (product instanceof Weapons) {
-            Weapons weapon = (Weapons) product;
+        } else if (product instanceof Weapon) {
+            Weapon weapon = (Weapon) product;
             info += "\nDamage: " + weapon.getDamage() + "\nDurability: " + weapon.getDurability() + "\nWeight: "
                     + weapon.getWeight();
         } else if (product instanceof Ability) {
@@ -595,21 +650,25 @@ public class AdminController implements Initializable {
 
     /**
      * Create a card for the product
+     * 
      * @param product
      * @return
      */
     private VBox createProductCard(SellableProducts product) {
         VBox card = new VBox();
-        card.setStyle("-fx-border-color: gray; -fx-padding: 10; -fx-alignment: center;");
+        card.setStyle("-fx-border-color: #c5d3dd; -fx-padding: 10; -fx-alignment: center;");
+        card.setSpacing(10);
+        card.setPrefSize(150, 125);
 
         // Product name and price
         Label nameLabel = new Label(product.getName());
         Label priceLabel = new Label("$" + product.getPrice());
-        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: black;");
-        priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: black;");
+        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: #fff4f4;");
+        priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: #fff4f4;");
 
         // Edit button
-        Button editButton = new Button("View");
+        JFXButton editButton = new JFXButton("View");
+        editButton.setStyle("-fx-background-color: #13598b; -fx-text-fill: white;");
         editButton.setOnAction(event -> {
             viewProduct(product);
         });
@@ -621,6 +680,7 @@ public class AdminController implements Initializable {
 
     /**
      * Clear the stack pane
+     * 
      * @Note: Used to clear the stack pane
      */
     private void clearStackPane() {
@@ -629,4 +689,16 @@ public class AdminController implements Initializable {
         }
     }
 
+    /**
+     * Show a dialog with a message
+     * 
+     * @param msg
+     */
+    private void showDialog(String msg) {
+        JFXDialog dialog = new JFXDialog();
+        dialog.setDialogContainer(adminCont);
+        dialog.setContent(new Label(msg));
+        dialog.show();
+
+    }
 }
