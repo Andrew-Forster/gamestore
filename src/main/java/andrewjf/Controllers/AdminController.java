@@ -39,7 +39,7 @@ import java.sql.Date;
 import static andrewjf.MainApp.setRoot;
 import static andrewjf.Models.Products.generateId;
 
-public class AdminController implements Initializable {
+public class AdminController extends BaseController implements Initializable {
 
     private static Store store = Store.getInstance();
     private static int currentlySelected = -1;
@@ -76,7 +76,7 @@ public class AdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        clearStackPane();
+        clearStackPane(adminCont);
         line.endXProperty().bind(resizable.widthProperty());
         try {
             displayProducts(null);
@@ -121,7 +121,7 @@ public class AdminController implements Initializable {
 
         // Create dialog saying saved!
 
-        showDialog(msg);
+        showDialog(msg, adminCont);
     }
 
     @FXML
@@ -131,14 +131,14 @@ public class AdminController implements Initializable {
             store.setProducts(products);
             try {
                 displayProducts(null);
-                showDialog("Products loaded successfully");
+                showDialog("Products loaded successfully", adminCont);
 
             } catch (IOException e) {
                 e.printStackTrace();
-                showDialog("Error loading products");
+                showDialog("Error loading products", adminCont);
             }
         } else {
-            showDialog("Error loading products");
+            showDialog("Error loading products", adminCont);
         }
     }
 
@@ -150,7 +150,7 @@ public class AdminController implements Initializable {
      */
     @FXML
     private void displayProducts(ActionEvent event) throws IOException {
-        clearStackPane();
+        clearStackPane(adminCont);
         ArrayList<SellableProducts> items = store.getProducts();
         GridPane productCont = new GridPane();
 
@@ -168,6 +168,11 @@ public class AdminController implements Initializable {
         productsPane.getChildren().add(scrollPane);
         productsPane.setVisible(true);
 
+        AnchorPane.setRightAnchor(scrollPane, 0.0);
+        AnchorPane.setBottomAnchor(scrollPane, 0.0);
+        AnchorPane.setLeftAnchor(scrollPane, 0.0);
+        AnchorPane.setTopAnchor(scrollPane, 0.0);
+
         if (search.getText().length() > 0) {
             searchProducts(null);
         }
@@ -180,7 +185,7 @@ public class AdminController implements Initializable {
      */
     @FXML
     private void addPage(ActionEvent event) {
-        clearStackPane();
+        clearStackPane(adminCont);
         addPane.setVisible(true);
     }
 
@@ -205,7 +210,7 @@ public class AdminController implements Initializable {
      */
     @FXML
     private void updatePage(ActionEvent event) {
-        clearStackPane();
+        clearStackPane(adminCont);
         updatePane.setVisible(true);
 
         SellableProducts product = store.getProduct(currentlySelected);
@@ -569,8 +574,9 @@ public class AdminController implements Initializable {
      */
     @FXML
     private void cancelUpdate(ActionEvent event) throws IOException {
-        clearStackPane();
-        viewProduct(store.getProduct(currentlySelected));
+        clearStackPane(adminCont);
+        viewProduct(store.getProduct(currentlySelected), adminCont, productInfo, productPane);
+
     }
 
     /**
@@ -600,7 +606,7 @@ public class AdminController implements Initializable {
         }
         confirmDialog.setVisible(false);
 
-        clearStackPane();
+        clearStackPane(adminCont);
         displayProducts(null);
     }
 
@@ -617,36 +623,6 @@ public class AdminController implements Initializable {
     @FXML
     private Label productInfo;
 
-    /**
-     * View the product details
-     * Opens the product pane
-     * 
-     * @param product
-     */
-    private void viewProduct(SellableProducts product) {
-        currentlySelected = product.getId();
-        String info = "Name: " + product.getName() + "\n" +
-                "ID: " + product.getId() + "\n" +
-                "Price: " + product.getPrice() + "\n" +
-                "Description: " + product.getDescription();
-        if (product instanceof Armor) {
-            Armor armor = (Armor) product;
-            info += "\nType: " + armor.getType() + "\nDefense: " + armor.getDefense() + "\nDurability: "
-                    + armor.getDurability();
-        } else if (product instanceof Weapon) {
-            Weapon weapon = (Weapon) product;
-            info += "\nDamage: " + weapon.getDamage() + "\nDurability: " + weapon.getDurability() + "\nWeight: "
-                    + weapon.getWeight();
-        } else if (product instanceof Ability) {
-            Ability ability = (Ability) product;
-            info += "\nType: " + ability.getType() + "\nCooldown: " + ability.getCooldown() + "\nDuration: "
-                    + ability.getDuration();
-        }
-
-        productInfo.setText(info);
-        clearStackPane();
-        productPane.setVisible(true);
-    }
 
     /**
      * Create a card for the product
@@ -670,7 +646,7 @@ public class AdminController implements Initializable {
         JFXButton editButton = new JFXButton("View");
         editButton.setStyle("-fx-background-color: #13598b; -fx-text-fill: white;");
         editButton.setOnAction(event -> {
-            viewProduct(product);
+            viewProduct(product, adminCont, productInfo, productPane);
         });
 
         // Add components to the card
@@ -678,27 +654,4 @@ public class AdminController implements Initializable {
         return card;
     }
 
-    /**
-     * Clear the stack pane
-     * 
-     * @Note: Used to clear the stack pane
-     */
-    private void clearStackPane() {
-        for (int i = 0; i < adminCont.getChildren().size(); i++) {
-            adminCont.getChildren().get(i).setVisible(false);
-        }
-    }
-
-    /**
-     * Show a dialog with a message
-     * 
-     * @param msg
-     */
-    private void showDialog(String msg) {
-        JFXDialog dialog = new JFXDialog();
-        dialog.setDialogContainer(adminCont);
-        dialog.setContent(new Label(msg));
-        dialog.show();
-
-    }
 }

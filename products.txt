@@ -7,4 +7,4 @@
 {"@class":"andrewjf.Models.Items.Ability","id":7,"name":"Fireball","description":"A fireball spell","price":50.0,"createdOn":"2021-09-01","cooldown":10,"duration":0}
 {"@class":"andrewjf.Models.Items.Ability","id":8,"name":"Heal","description":"A healing spell","price":50.0,"createdOn":"2021-09-01","cooldown":5,"duration":10}
 {"@class":"andrewjf.Models.Items.Ability","id":9,"name":"Lightning Bolt","description":"A lightning bolt spell","price":50.0,"createdOn":"2021-09-01","cooldown":5,"duration":15}
-{"@class":"andrewjf.Models.Items.Armor","id":11,"name":"Something","description":"COol","price":5.0,"createdOn":"2024-11-02","defense":5,"durability":5}
+{"@class":"andrewjf.Models.Items.Armor","id":10,"name":"Test","description":"hi","price":345.0,"createdOn":"2024-11-17","defense":345,"durability":345}

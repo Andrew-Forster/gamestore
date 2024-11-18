@@ -38,12 +38,16 @@ public class Store {
         return products.getProducts();
     }
 
+    public ArrayList<SellableProducts> getProducts(String sort) {
+        return products.getProducts(sort);
+    }
+
     public SellableProducts getProduct(int id) {
         return products.getProduct(id);
     }
 
     public ArrayList<SellableProducts> searchProducts(String searchTerm) {
-        ArrayList<SellableProducts> searchResults = products.getProducts(searchTerm);
+        ArrayList<SellableProducts> searchResults = products.searchProducts(searchTerm);
         return searchResults;
     }
 

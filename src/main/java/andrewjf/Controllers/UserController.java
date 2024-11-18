@@ -94,7 +94,7 @@ public class UserController implements Initializable {
     /**
      * Toggles the user menu
      * TODO: Add animation
-     * TODO: Adjust the stack pane to take up the available space
+     * ✔️TODO: Adjust the stack pane to take up the available space
      */
     @FXML
     private void toggleMenu() {
@@ -149,6 +149,37 @@ public class UserController implements Initializable {
 
         if (search.getText().length() > 0) {
             searchProducts(null);
+        }
+    }
+
+    @FXML
+    private JFXButton btnSort;
+
+    @FXML
+    private void sortProducts(ActionEvent event) {
+        switch (btnSort.getText()) {
+            case "Sort - Name ASC":
+                btnSort.setText("Sort - Name DESC");
+                break;
+            case "Sort - Name DESC":
+                btnSort.setText("Sort - Price ASC");
+                break;
+            case "Sort - Price ASC":
+                btnSort.setText("Sort - Price DESC");
+                break;
+            case "Sort - Price DESC":
+                btnSort.setText("Sort - Name ASC");
+                break;  
+            default:
+                btnSort.setText("Sort - Name ASC");
+                break;
+        }
+
+        try {
+            displayProducts(null);
+        } catch (IOException e) {
+            System.out.println("Error displaying products");
+            e.printStackTrace();
         }
     }
 

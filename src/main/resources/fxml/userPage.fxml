@@ -34,18 +34,23 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="413.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="514.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label prefHeight="31.0" prefWidth="61.0" text="Search:" textAlignment="RIGHT" textFill="#ebdfdf">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="search" onKeyTyped="#searchProducts" prefHeight="32.0" prefWidth="234.0">
+                              <TextField fx:id="search" onKeyTyped="#searchProducts" prefHeight="32.0" prefWidth="186.0">
                                  <HBox.margin>
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </TextField>
+                              <JFXButton fx:id="btnSort" onAction="#sortProducts" prefHeight="30.0" prefWidth="142.0" style="-fx-background-color: #1994f2;" text="Sort - Name DESC">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </JFXButton>
                            </children>
                         </HBox>
                      </children>
