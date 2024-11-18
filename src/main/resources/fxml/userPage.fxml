@@ -46,7 +46,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </TextField>
-                              <JFXButton fx:id="btnSort" onAction="#sortProducts" prefHeight="30.0" prefWidth="142.0" style="-fx-background-color: #1994f2;" text="Sort - Name DESC">
+                              <JFXButton fx:id="btnSort" onAction="#sortProducts" prefHeight="30.0" prefWidth="142.0" style="-fx-background-color: #1994f2;" text="Sort: Name A -&gt; Z">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -91,7 +91,7 @@
             </VBox>
          </left>
          <center>
-            <StackPane fx:id="adminCont" prefHeight="376.0" prefWidth="477.0" BorderPane.alignment="CENTER">
+            <StackPane fx:id="userCont" prefHeight="376.0" prefWidth="477.0" BorderPane.alignment="CENTER">
                <children>
                   <AnchorPane fx:id="productsPane" prefHeight="200.0" prefWidth="610.0" visible="false">
                      <children>

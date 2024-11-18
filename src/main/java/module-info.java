@@ -1,10 +1,10 @@
 module andrewjf {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
     requires java.sql;
     requires transitive javafx.graphics;
-    requires com.jfoenix;
+    requires transitive com.jfoenix;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;

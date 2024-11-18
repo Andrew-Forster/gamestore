@@ -41,6 +41,7 @@ import static andrewjf.Models.Products.generateId;
 
 public class AdminController extends BaseController implements Initializable {
 
+
     private static Store store = Store.getInstance();
     private static int currentlySelected = -1;
 
@@ -69,14 +70,16 @@ public class AdminController extends BaseController implements Initializable {
     private Pane resizable;
     @FXML
     private Line line;
+    @FXML
+    private JFXButton btnSort;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        clearStackPane(adminCont);
+        init(adminCont, productInfo, productPane, productsPane, search, btnSort);
+        clearStackPane();
         line.endXProperty().bind(resizable.widthProperty());
         try {
             displayProducts(null);
@@ -121,7 +124,7 @@ public class AdminController extends BaseController implements Initializable {
 
         // Create dialog saying saved!
 
-        showDialog(msg, adminCont);
+        showDialog(msg);
     }
 
     @FXML
@@ -131,14 +134,14 @@ public class AdminController extends BaseController implements Initializable {
             store.setProducts(products);
             try {
                 displayProducts(null);
-                showDialog("Products loaded successfully", adminCont);
+                showDialog("Products loaded successfully");
 
             } catch (IOException e) {
                 e.printStackTrace();
-                showDialog("Error loading products", adminCont);
+                showDialog("Error loading products");
             }
         } else {
-            showDialog("Error loading products", adminCont);
+            showDialog("Error loading products");
         }
     }
 
@@ -150,7 +153,7 @@ public class AdminController extends BaseController implements Initializable {
      */
     @FXML
     private void displayProducts(ActionEvent event) throws IOException {
-        clearStackPane(adminCont);
+        clearStackPane();
         ArrayList<SellableProducts> items = store.getProducts();
         GridPane productCont = new GridPane();
 
@@ -185,7 +188,7 @@ public class AdminController extends BaseController implements Initializable {
      */
     @FXML
     private void addPage(ActionEvent event) {
-        clearStackPane(adminCont);
+        clearStackPane();
         addPane.setVisible(true);
     }
 
@@ -210,7 +213,7 @@ public class AdminController extends BaseController implements Initializable {
      */
     @FXML
     private void updatePage(ActionEvent event) {
-        clearStackPane(adminCont);
+        clearStackPane();
         updatePane.setVisible(true);
 
         SellableProducts product = store.getProduct(currentlySelected);
@@ -574,8 +577,8 @@ public class AdminController extends BaseController implements Initializable {
      */
     @FXML
     private void cancelUpdate(ActionEvent event) throws IOException {
-        clearStackPane(adminCont);
-        viewProduct(store.getProduct(currentlySelected), adminCont, productInfo, productPane);
+        clearStackPane();
+        viewProduct(store.getProduct(currentlySelected));
 
     }
 
@@ -606,7 +609,7 @@ public class AdminController extends BaseController implements Initializable {
         }
         confirmDialog.setVisible(false);
 
-        clearStackPane(adminCont);
+        clearStackPane();
         displayProducts(null);
     }
 
@@ -622,36 +625,5 @@ public class AdminController extends BaseController implements Initializable {
 
     @FXML
     private Label productInfo;
-
-
-    /**
-     * Create a card for the product
-     * 
-     * @param product
-     * @return
-     */
-    private VBox createProductCard(SellableProducts product) {
-        VBox card = new VBox();
-        card.setStyle("-fx-border-color: #c5d3dd; -fx-padding: 10; -fx-alignment: center;");
-        card.setSpacing(10);
-        card.setPrefSize(150, 125);
-
-        // Product name and price
-        Label nameLabel = new Label(product.getName());
-        Label priceLabel = new Label("$" + product.getPrice());
-        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: #fff4f4;");
-        priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: #fff4f4;");
-
-        // Edit button
-        JFXButton editButton = new JFXButton("View");
-        editButton.setStyle("-fx-background-color: #13598b; -fx-text-fill: white;");
-        editButton.setOnAction(event -> {
-            viewProduct(product, adminCont, productInfo, productPane);
-        });
-
-        // Add components to the card
-        card.getChildren().addAll(nameLabel, priceLabel, editButton);
-        return card;
-    }
 
 }

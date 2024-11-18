@@ -83,6 +83,10 @@ public class Store {
         return cart.getProducts();
     }
 
+    public ArrayList<SellableProducts> getCart(String sort) {
+        return cart.getProducts(sort);
+    }
+
     public double checkout() {
         return cart.checkout();
     }
