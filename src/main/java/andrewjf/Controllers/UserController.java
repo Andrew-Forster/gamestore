@@ -174,6 +174,8 @@ public class UserController extends BaseController implements Initializable {
         scrollPane.setFitToWidth(true);
         scrollPane.setPrefHeight(400);
         scrollPane.getStyleClass().add("scroll-pane");
+        scrollPane.setStyle("-fx-padding: 10;");
+
 
         productsPane.getChildren().clear();
         productsPane.getChildren().add(scrollPane);

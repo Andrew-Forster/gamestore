@@ -16,6 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -91,6 +92,7 @@ public class BaseController {
         scrollPane.setFitToWidth(true);
         scrollPane.setPrefHeight(400);
         scrollPane.getStyleClass().add("scroll-pane");
+        scrollPane.setStyle("-fx-padding: 10;");
 
         productsPane.getChildren().clear();
         productsPane.getChildren().add(scrollPane);
@@ -107,43 +109,45 @@ public class BaseController {
      * Create a card for the product
      * 
      * @param product     The product to create the card for
-     * @param cont        The container to show the product in
-     * @param productInfo The label to show the product info
-     * @param productPane The anchor pane to show the product pane
      * @return
      */
-    protected VBox createProductCard(SellableProducts product) {
-        VBox card = new VBox();
-        card.setStyle("-fx-border-color: #c5d3dd; -fx-padding: 10; -fx-alignment: center;");
-        card.setSpacing(10);
-        card.setPrefSize(150, 125);
+protected VBox createProductCard(SellableProducts product) {
+    VBox card = new VBox();
+    card.setStyle("-fx-border-color: #c5d3dd; -fx-padding: 10; -fx-alignment: center;");
+    card.setSpacing(10);
+    
+    card.setMinSize(140, 125);
+    card.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    
+    // Product name and price
+    Label nameLabel = new Label(product.getName());
+    Label priceLabel = new Label("$" + product.getPrice());
+    nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: #fff4f4;");
+    priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: #fff4f4;");
 
-        // Product name and price
-        Label nameLabel = new Label(product.getName());
-        Label priceLabel = new Label("$" + product.getPrice());
-        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: #fff4f4;");
-        priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: #fff4f4;");
+    // Edit button
+    JFXButton editButton = new JFXButton("View");
+    editButton.setStyle("-fx-background-color: #13598b; -fx-text-fill: white;");
+    editButton.setOnAction(event -> {
+        viewProduct(product);
+    });
 
-        // Edit button
-        JFXButton editButton = new JFXButton("View");
-        editButton.setStyle("-fx-background-color: #13598b; -fx-text-fill: white;");
-        editButton.setOnAction(event -> {
-            viewProduct(product);
-        });
+    // Add components to the card
+    card.getChildren().addAll(nameLabel, priceLabel, editButton);
 
-        // Add components to the card
-        card.getChildren().addAll(nameLabel, priceLabel, editButton);
-        return card;
-    }
+    // Allow card to grow in GridPane
+    GridPane.setHgrow(card, Priority.ALWAYS);
+    GridPane.setVgrow(card, Priority.ALWAYS);
+
+    return card;
+}
+
 
     /**
      * View the product details
      * Opens the product pane
      * 
      * @param product     The product to view
-     * @param cont        The container to show the product in
-     * @param productInfo The label to show the product info
-     * @param productPane The anchor pane to show the product pane
      */
     protected void viewProduct(SellableProducts product) {
         currentlySelected = product.getId();
@@ -185,7 +189,6 @@ public class BaseController {
      * Show a dialog with a message
      * 
      * @param msg
-     * @param cont The container to show / attach the dialog to
      */
     protected void showDialog(String msg) {
         JFXDialog dialog = new JFXDialog();
@@ -197,7 +200,6 @@ public class BaseController {
     /**
      * Clear the stack pane
      * 
-     * @param cont The stack pane to clear
      * @Note Used to clear the stack pane
      */
     protected void clearStackPane() {

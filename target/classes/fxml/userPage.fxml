@@ -101,9 +101,6 @@
                            </font>
                         </Label>
                      </children>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
                   </AnchorPane>
                   <AnchorPane fx:id="cartPane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>

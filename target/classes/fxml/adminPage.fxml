@@ -264,9 +264,6 @@
                            </font>
                         </Label>
                      </children>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
                   </AnchorPane>
                </children>
             </StackPane>
@@ -286,7 +283,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="391.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="348.0">
                            <children>
                               <Label prefHeight="31.0" prefWidth="61.0" text="Search:" textAlignment="RIGHT" textFill="#ebdfdf">
                                  <font>
@@ -299,7 +296,7 @@
                                  </HBox.margin></TextField>
                            </children>
                         </HBox>
-                        <JFXButton fx:id="btnSort" prefHeight="30.0" prefWidth="142.0" text="Sort: Name A -&gt; Z">
+                        <JFXButton fx:id="btnSort" onAction="#sortProducts" prefHeight="30.0" prefWidth="165.0" style="-fx-background-color: #1994f2;" text="Sort: Name A -&gt; Z">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>

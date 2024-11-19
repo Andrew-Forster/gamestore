@@ -145,6 +145,12 @@ public class AdminController extends BaseController implements Initializable {
         }
     }
 
+    @FXML
+    private void sortProducts(ActionEvent event) {
+        sortChange();
+        Display();
+    }
+
     /**
      * Display the products in the store
      * 
@@ -154,27 +160,8 @@ public class AdminController extends BaseController implements Initializable {
     @FXML
     private void displayProducts(ActionEvent event) throws IOException {
         clearStackPane();
-        ArrayList<SellableProducts> items = store.getProducts();
-        GridPane productCont = new GridPane();
 
-        for (int i = 0; i < items.size(); i++) {
-            VBox card = createProductCard(items.get(i));
-            productCont.add(card, i % 3, i / 3);
-        }
-
-        ScrollPane scrollPane = new ScrollPane(productCont);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPrefHeight(400);
-        scrollPane.getStyleClass().add("scroll-pane");
-
-        productsPane.getChildren().clear();
-        productsPane.getChildren().add(scrollPane);
-        productsPane.setVisible(true);
-
-        AnchorPane.setRightAnchor(scrollPane, 0.0);
-        AnchorPane.setBottomAnchor(scrollPane, 0.0);
-        AnchorPane.setLeftAnchor(scrollPane, 0.0);
-        AnchorPane.setTopAnchor(scrollPane, 0.0);
+        Display();
 
         if (search.getText().length() > 0) {
             searchProducts(null);
