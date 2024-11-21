@@ -28,18 +28,18 @@ andrewjf
 -version
 -windowtitle
 'gamestore 1.0-SNAPSHOT API'
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\src\main\java\module-info.java = 1730527321960
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\src\main\java\module-info.java = 1731917238029
 C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\src\main\java = 1728437899159
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\allclasses-index.html = 1730532577686
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\allpackages-index.html = 1730532577689
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\element-list = 1730532577478
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\help-doc.html = 1730532577754
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\index-all.html = 1730532577735
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\index.html = 1730532577741
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\member-search-index.js = 1730532577701
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\module-search-index.js = 1730532577697
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\overview-tree.html = 1730532577664
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\package-search-index.js = 1730532577698
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\search.html = 1730532577738
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\tag-search-index.js = 1730532577702
-C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\type-search-index.js = 1730532577700
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\allclasses-index.html = 1732171490843
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\allpackages-index.html = 1732171490846
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\element-list = 1732171490595
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\help-doc.html = 1732171490904
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\index-all.html = 1732171490885
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\index.html = 1732171490891
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\member-search-index.js = 1732171490855
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\module-search-index.js = 1732171490849
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\overview-tree.html = 1732171490811
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\package-search-index.js = 1732171490851
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\search.html = 1732171490888
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\tag-search-index.js = 1732171490856
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\gamestore\target\site\apidocs\type-search-index.js = 1732171490852
