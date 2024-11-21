@@ -1,6 +1,7 @@
 package andrewjf.Models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import andrewjf.Models.Interfaces_Abstract.SellableProducts;
 import andrewjf.Models.Items.Ability;
@@ -79,6 +80,28 @@ public class Products {
         return products;
     }
 
+    public ArrayList<SellableProducts> getProducts(String sort) {
+
+        ArrayList<SellableProducts> productsList = new ArrayList<>(products);
+
+        switch (sort) {
+            case "name:asc":
+                Collections.sort(productsList);
+                break;
+            case "name:desc":
+                Collections.sort(productsList, Collections.reverseOrder());
+                break;
+            case "price:asc":
+                Collections.sort(productsList, (o1, o2) -> Double.compare(o1.getPrice(), o2.getPrice()));
+                break;
+            case "price:desc":
+                Collections.sort(productsList, (o1, o2) -> Double.compare(o2.getPrice(), o1.getPrice()));
+                break;
+        }
+        return productsList;
+    }
+
+
     public SellableProducts getProduct(int id) {
         for (SellableProducts product : products) {
             if (product.getId() == id) {
@@ -88,7 +111,7 @@ public class Products {
         return null;
     }
 
-    public ArrayList<SellableProducts> getProducts(String name) {
+    public ArrayList<SellableProducts> searchProducts(String name) {
         ArrayList<SellableProducts> searchResults = new ArrayList<>();
         String[] split = name.split(":");
         // Check if has search type

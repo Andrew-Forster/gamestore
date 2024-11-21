@@ -26,24 +26,18 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 
-import andrewjf.Models.Store;
 import andrewjf.Models.Interfaces_Abstract.SellableProducts;
-import andrewjf.Models.Items.Ability;
-import andrewjf.Models.Items.Armor;
-import andrewjf.Models.Items.Weapon;
 
 import static andrewjf.MainApp.setRoot;
 
-public class UserController implements Initializable {
+public class UserController extends BaseController implements Initializable {
 
-    private static Store store = Store.getInstance();
-    private static int currentlySelected = -1;
     private static String currentPane = "products";
 
     @FXML
     private VBox menu;
     @FXML
-    private StackPane adminCont;
+    private StackPane userCont;
     @FXML
     private JFXDialog confirmDialog;
 
@@ -64,12 +58,14 @@ public class UserController implements Initializable {
     private Pane resizable;
     @FXML
     private Line line;
-
+    @FXML
+    private JFXButton btnSort;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        init(userCont, productInfo, productPane, productsPane, search, btnSort, btnAddToCart, btnRemFromCart);
         clearStackPane();
         line.endXProperty().bind(resizable.widthProperty());
 
@@ -94,7 +90,7 @@ public class UserController implements Initializable {
     /**
      * Toggles the user menu
      * TODO: Add animation
-     * TODO: Adjust the stack pane to take up the available space
+     * ✔️TODO: Adjust the stack pane to take up the available space
      */
     @FXML
     private void toggleMenu() {
@@ -129,26 +125,30 @@ public class UserController implements Initializable {
      */
     @FXML
     private void displayProducts(ActionEvent event) throws IOException {
-        clearStackPane();
-        ArrayList<SellableProducts> items = store.getProducts();
-        GridPane productCont = new GridPane();
+        currentPane = "products";
 
-        for (int i = 0; i < items.size(); i++) {
-            VBox card = createProductCard(items.get(i));
-            productCont.add(card, i % 3, i / 3);
-        }
-
-        ScrollPane scrollPane = new ScrollPane(productCont);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPrefHeight(400);
-        scrollPane.getStyleClass().add("scroll-pane");
-
-        productsPane.getChildren().clear();
-        productsPane.getChildren().add(scrollPane);
-        productsPane.setVisible(true);
-
+        Display();
+        
         if (search.getText().length() > 0) {
             searchProducts(null);
+        }
+    }
+
+
+
+    @FXML
+    private void sortProducts(ActionEvent event) {
+        sortChange();
+
+        if (currentPane == "products") {
+            Display();
+        } else {
+            try {
+                displayCart(null);
+            } catch (IOException e) {
+                System.out.println("Error displaying cart");
+                e.printStackTrace();
+            }
         }
     }
 
@@ -162,7 +162,7 @@ public class UserController implements Initializable {
     private void displayCart(ActionEvent event) throws IOException {
         lblCartPrice.setVisible(false);
         clearStackPane();
-        ArrayList<SellableProducts> items = store.getCart();
+        ArrayList<SellableProducts> items = store.getCart(getSort());
         GridPane productCont = new GridPane();
 
         for (int i = 0; i < items.size(); i++) {
@@ -174,10 +174,17 @@ public class UserController implements Initializable {
         scrollPane.setFitToWidth(true);
         scrollPane.setPrefHeight(400);
         scrollPane.getStyleClass().add("scroll-pane");
+        scrollPane.setStyle("-fx-padding: 10;");
+
 
         productsPane.getChildren().clear();
         productsPane.getChildren().add(scrollPane);
         productsPane.setVisible(true);
+
+        AnchorPane.setRightAnchor(scrollPane, 0.0);
+        AnchorPane.setBottomAnchor(scrollPane, 0.0);
+        AnchorPane.setLeftAnchor(scrollPane, 0.0);
+        AnchorPane.setTopAnchor(scrollPane, 0.0);
 
         if (items.size() == 0) {
             Label emptyCart = new Label("Your cart is empty");
@@ -229,45 +236,6 @@ public class UserController implements Initializable {
     @FXML
     private JFXButton btnRemFromCart;
 
-    /**
-     * View the product details
-     * Opens the product pane
-     * 
-     * @param product
-     */
-    private void viewProduct(SellableProducts product) {
-        currentlySelected = product.getId();
-        String info = "Name: " + product.getName() + "\n" +
-                "ID: " + product.getId() + "\n" +
-                "Price: " + product.getPrice() + "\n" +
-                "Description: " + product.getDescription();
-        if (product instanceof Armor) {
-            Armor armor = (Armor) product;
-            info += "\nType: " + armor.getType() + "\nDefense: " + armor.getDefense() + "\nDurability: "
-                    + armor.getDurability();
-        } else if (product instanceof Weapon) {
-            Weapon weapon = (Weapon) product;
-            info += "\nDamage: " + weapon.getDamage() + "\nDurability: " + weapon.getDurability() + "\nWeight: "
-                    + weapon.getWeight();
-        } else if (product instanceof Ability) {
-            Ability ability = (Ability) product;
-            info += "\nType: " + ability.getType() + "\nCooldown: " + ability.getCooldown() + "\nDuration: "
-                    + ability.getDuration();
-        }
-
-        if (store.getCart().contains(product)) {
-            AnchorPane.setRightAnchor(btnAddToCart, 179.2);
-
-            btnRemFromCart.setVisible(true);
-        } else {
-            AnchorPane.setRightAnchor(btnAddToCart, 14.2);
-            btnRemFromCart.setVisible(false);
-        }
-
-        productInfo.setText(info);
-        clearStackPane();
-        productPane.setVisible(true);
-    }
 
     @FXML
     private void handleCartBack(ActionEvent event) throws IOException {
@@ -314,45 +282,5 @@ public class UserController implements Initializable {
         timeline.play();
     }
 
-    /**
-     * Create a card for the product
-     * 
-     * @param product
-     * @return
-     */
-    private VBox createProductCard(SellableProducts product) {
-        VBox card = new VBox();
-        card.setStyle("-fx-border-color: #c5d3dd; -fx-padding: 10; -fx-alignment: center;");
-        card.setSpacing(10);
-        card.setPrefSize(150, 125);
-
-        // Product name and price
-        Label nameLabel = new Label(product.getName());
-        Label priceLabel = new Label("$" + product.getPrice());
-        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em; -fx-text-fill: #fff4f4;");
-        priceLabel.setStyle("-fx-font-size: 1.2em; -fx-text-fill: #fff4f4;");
-
-        // Edit button
-        JFXButton editButton = new JFXButton("View");
-        editButton.setStyle("-fx-background-color: #13598b; -fx-text-fill: white;");
-        editButton.setOnAction(event -> {
-            viewProduct(product);
-        });
-
-        // Add components to the card
-        card.getChildren().addAll(nameLabel, priceLabel, editButton);
-        return card;
-    }
-
-    /**
-     * Clear the stack pane
-     * 
-     * @Note: Used to clear the stack pane
-     */
-    private void clearStackPane() {
-        for (int i = 0; i < adminCont.getChildren().size(); i++) {
-            adminCont.getChildren().get(i).setVisible(false);
-        }
-    }
 
 }

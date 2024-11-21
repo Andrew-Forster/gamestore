@@ -1,6 +1,6 @@
 # GameStore App
 
-A JavaFX-based application that simulates an online game store, offering both **admin** and **user** functionalities. This project is built as part of a class project, developed in milestones, progressively adding features from handling inventory to remote administration.
+A JavaFX-based application that simulates an online game store, offering both **admin** and **user** functionalities. This project is built as part of a class project, developed in milestones, progressively adding features from handling inventory to administration.
 
 ## Features
 - **Admin Functions:**
@@ -52,9 +52,12 @@ A JavaFX-based application that simulates an online game store, offering both **
 
 **[View this Iteration here](https://github.com/Andrew-Forster/gamestore/releases/tag/v4.0.0)**
 
-### Milestone 5: Sorting Data
+### ✔️ Milestone 5: Sorting Data
 - Add sorting features to inventory and cart:
-- Sort by name, date, and price.
+- Sorting by name and price.
+- Numerous refactors, Admin and User controllers extend the Base controller.
+
+**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/releases/tag/v5.0.0)**
 
 ### Milestone 6: Remote Admin App
 - Develop a remote admin app using network communication:

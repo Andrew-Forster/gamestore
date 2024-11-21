@@ -72,6 +72,7 @@ public abstract class SellableProducts implements Comparable<SellableProducts> {
         return this.name.compareTo(o.name);
     }
 
+
     public int getId() {
         return id;
     }
