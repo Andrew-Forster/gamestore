@@ -2,12 +2,9 @@ package andrewjf.Controllers;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import andrewjf.Models.Store;
-
 public class Server {
     private ServerSocket serverSocket;
-    protected static Store store = Store.getInstance();
+
 
     /**
      * Starts the server on the specified port.
