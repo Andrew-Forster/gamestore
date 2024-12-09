@@ -9,6 +9,10 @@ public class Server {
     private ServerSocket serverSocket;
     protected static Store store = Store.getInstance();
 
+    /**
+     * Starts the server on the specified port.
+     * @param port
+     */
     public void start(int port) {
         try {
             serverSocket = new ServerSocket(port);
@@ -45,6 +49,9 @@ public class Server {
         }
     }
 
+    /**
+     * Stops the server.
+     */
     public void stop() {
         try {
             serverSocket.close();

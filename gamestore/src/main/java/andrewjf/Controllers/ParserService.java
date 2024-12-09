@@ -16,7 +16,7 @@ public class ParserService {
     protected static Store store = Store.getInstance();
 
     /*
-     * Process the message and return a response
+     * Process's the message and returns a response
      */
     public String processMessage(String message) {
         String[] parts = message.split(" ");

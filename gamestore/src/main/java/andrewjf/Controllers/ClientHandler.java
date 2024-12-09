@@ -29,6 +29,9 @@ public class ClientHandler implements Runnable {
         this.parserService = new ParserService();
     }
 
+    /**
+     * Reads messages from the client, processes them, and sends JSON responses.
+     */
     @Override
     public void run() {
         try {
