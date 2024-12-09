@@ -1,8 +1,8 @@
 {"@class":"andrewjf.Models.Items.Armor","id":1,"name":"Leather Armor","description":"Light armor made from leather","price":50.0,"createdOn":"2021-09-01","defense":5,"durability":10}
 {"@class":"andrewjf.Models.Items.Armor","id":2,"name":"Chainmail Armor","description":"Medium armor made from chainmail","price":100.0,"createdOn":"2021-09-01","defense":10,"durability":15}
 {"@class":"andrewjf.Models.Items.Armor","id":3,"name":"Plate Armor","description":"Heavy armor made from steel plates","price":150.0,"createdOn":"2021-09-01","defense":15,"durability":20}
-{"@class":"andrewjf.Models.Items.Weapon","id":4,"name":"Dagger","description":"A small dagger","price":10.0,"createdOn":"2021-09-01","damage":5,"durability":10,"weight":2}
-{"@class":"andrewjf.Models.Items.Ability","id":5,"name":"t","description":"t","price":5.0,"createdOn":"2024-12-07","cooldown":5,"duration":5}
+{"@class":"andrewjf.Models.Items.Weapon","id":4,"name":"Dagger","description":"A small dagger","price":10.05,"createdOn":"2021-09-01","damage":5,"durability":10,"weight":2}
+{"@class":"andrewjf.Models.Items.Weapon","id":5,"name":"Sword","description":"A standard sword","price":20.0,"createdOn":"2021-09-01","damage":10,"durability":15,"weight":5}
 {"@class":"andrewjf.Models.Items.Weapon","id":6,"name":"Greatsword","description":"A large two-handed sword","price":30.0,"createdOn":"2021-09-01","damage":15,"durability":20,"weight":10}
 {"@class":"andrewjf.Models.Items.Ability","id":7,"name":"Fireball","description":"A fireball spell","price":50.0,"createdOn":"2021-09-01","cooldown":10,"duration":0}
 {"@class":"andrewjf.Models.Items.Ability","id":8,"name":"Heal","description":"A healing spell","price":50.0,"createdOn":"2021-09-01","cooldown":5,"duration":10}

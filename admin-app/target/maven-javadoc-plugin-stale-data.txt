@@ -1,0 +1,43 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'22'
+-sourcepath
+'C:/Users/forst/School/SPMR/CST-239 (Java 2)/Milestone/admin-app/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/forst/School/SPMR/CST-239 (Java 2)/Milestone/admin-app/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'admin-app 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'admin-app 1.0-SNAPSHOT API'
+andrewjf
+andrewjf.Helpers
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\src\main\java = 1733616494389
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\allclasses-index.html = 1733706616319
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\allpackages-index.html = 1733706616324
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\element-list = 1733706616214
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\help-doc.html = 1733706616363
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\index-all.html = 1733706616349
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\index.html = 1733706616300
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\member-search-index.js = 1733706616332
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\module-search-index.js = 1733706616326
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\overview-summary.html = 1733706616357
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\overview-tree.html = 1733706616294
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\package-search-index.js = 1733706616328
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\search.html = 1733706616354
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\tag-search-index.js = 1733706616334
+C:\Users\forst\School\SPMR\CST-239 (Java 2)\Milestone\admin-app\target\reports\apidocs\type-search-index.js = 1733706616330
