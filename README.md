@@ -60,13 +60,10 @@ A JavaFX-based application that simulates an online game store, offering both **
 **[View this Iteration here](https://github.com/Andrew-Forster/gamestore/releases/tag/v5.0.0)**
 
 ### Milestone 6: Remote Admin App
-- Develop a remote admin app using network communication:
-- Client app handles admin functions and communicates with a server.
-- CRUD operations are performed on the server and commands are sent using **JSON**.
-- Network commands run on background threads to avoid UI delays.
+- Developed an admin app to control the GUI via network communication:
+- CRUD operations are performed on the GUI (server) app and parses commands.
 
-### Milestone 7: Unit Testing
-- Implement unit tests to verify the functionality of inventory management and shopping cart methods.
+**[View this Iteration here](https://github.com/Andrew-Forster/gamestore/releases/tag/v5.0.0)**
 
 ---
 
